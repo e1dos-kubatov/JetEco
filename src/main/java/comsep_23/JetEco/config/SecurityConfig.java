@@ -36,6 +36,8 @@ public class SecurityConfig {
                 .cors().disable()
                 .authorizeRequests()
                 .requestMatchers("/api/clients/register", "/api/partners/register").permitAll()
+                .requestMatchers("/api/clients/**").hasRole("CLIENT")
+                .requestMatchers("/api/partners/**").hasRole("PARTNER")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()

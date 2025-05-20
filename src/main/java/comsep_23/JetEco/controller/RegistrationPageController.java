@@ -1,5 +1,6 @@
 package comsep_23.JetEco.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,5 +22,3 @@ public class RegistrationPageController {
         return "business-signup"; // templates/business-signup.html
     }
 }
-
-
