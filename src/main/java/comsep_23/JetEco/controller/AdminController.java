@@ -2,7 +2,7 @@ package comsep_23.JetEco.controller;
 
 import comsep_23.JetEco.entity.Offer;
 import comsep_23.JetEco.entity.Partner;
-import comsep_23.JetEco.entity.User;
+import comsep_23.JetEco.entity.Client;
 import comsep_23.JetEco.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,26 +37,26 @@ public class AdminController {
     }
 
 
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return adminService.getAllUsers();
+    @GetMapping("/clients")
+    public List<Client> getAllClients() {
+        return adminService.getAllClients();
     }
 
-    @PutMapping("/user/{id}/block")
-    public ResponseEntity<Void> blockUser(@PathVariable Long id) {
-        adminService.blockUser(id);
+    @PutMapping("/client/{id}/block")
+    public ResponseEntity<Void> blockClient(@PathVariable Long id) {
+        adminService.blockClient(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/user/{id}/unblock")
-    public ResponseEntity<Void> unblockUser(@PathVariable Long id) {
-        adminService.unblockUser(id);
+    @PutMapping("/client/{id}/unblock")
+    public ResponseEntity<Void> unblockClient(@PathVariable Long id) {
+        adminService.unblockClient(id);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        adminService.deleteUser(id);
+    @DeleteMapping("/client/{id}")
+    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
+        adminService.deleteClient(id);
         return ResponseEntity.ok().build();
     }
 

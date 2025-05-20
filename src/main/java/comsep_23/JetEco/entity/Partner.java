@@ -42,7 +42,7 @@ public class Partner implements UserDetails {
 
     @Override
     public String getUsername() {
-        return phone;
+        return name;
     }
 
     @Override

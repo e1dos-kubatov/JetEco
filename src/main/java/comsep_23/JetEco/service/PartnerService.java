@@ -2,6 +2,9 @@ package comsep_23.JetEco.service;
 
 import comsep_23.JetEco.entity.Partner;
 import comsep_23.JetEco.repository.PartnerRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class PartnerService {
+public class PartnerService implements UserDetailsService {
     private final PartnerRepository partnerRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -57,5 +60,10 @@ public class PartnerService {
         } else {
             throw new RuntimeException("Partner with id " + id + " not found.");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
