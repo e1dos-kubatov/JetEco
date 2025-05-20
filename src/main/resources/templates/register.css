@@ -1,0 +1,129 @@
+/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Контейнер формы */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Форма регистрации */
+.register-form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Заголовок формы */
+.register-form h2 {
+    margin-bottom: 24px;
+    color: #333333;
+    text-align: center;
+}
+
+/* Группы ввода */
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* Метки полей */
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555555;
+    font-size: 14px;
+}
+
+/* Поля ввода */
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+/* Фокус на поле ввода */
+.input-group input:focus {
+    border-color: #00796b;
+    outline: none;
+}
+
+/* Кнопка отправки */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #00796b;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Ховер на кнопке */
+button[type="submit"]:hover {
+    background-color: #005f56;
+}
+
+/* Ссылка на вход */
+.login-link {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #777777;
+}
+
+/* Стилизация ссылки */
+.login-link a {
+    color: #00796b;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.businessregistration
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .register-form {
+        padding: 30px 20px;
+    }
+}
+
+/* Кнопка "Sign up Your Business" */
+.business-signup {
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 40px;
+}
+
+.business-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #004d40;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.business-button:hover {
+    background-color: #00332e;
+}
