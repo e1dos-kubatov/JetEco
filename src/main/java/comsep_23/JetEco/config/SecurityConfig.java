@@ -1,6 +1,6 @@
 package comsep_23.JetEco.config;
 
-import comsep_23.JetEco.service.UserService;
+import comsep_23.JetEco.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +21,11 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
-    private UserService userService;
+    private ClientService clientService;
 
     @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
+    public void setUserService(ClientService clientService){
+        this.clientService = clientService;
     }
 
 
@@ -35,7 +35,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .requestMatchers("/**").permitAll()
+                .requestMatchers("/api/clients/register", "/api/partners/register").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
@@ -51,7 +52,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userService);
+        provider.setUserDetailsService(clientService);
         return provider;
     }
 
