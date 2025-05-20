@@ -32,4 +32,5 @@ public class Order {
 
     private boolean paid;
     private double amount;
+    private boolean active;
 }

@@ -34,7 +34,6 @@ public class OrderService {
             throw new RuntimeException("Offer is not available");
         }
 
-        // decrease offer quantity
         offer.setQuantity(offer.getQuantity() - 1);
         offerRepository.save(offer);
 
@@ -42,7 +41,7 @@ public class OrderService {
         order.setUser(user);
         order.setOffer(offer);
         order.setOrderedAt(LocalDateTime.now());
-        order.setPaid(false); // можно позже добавить оплату
+        order.setPaid(false);
         order.setAmount(offer.getDiscountPrice());
 
         return orderRepository.save(order);

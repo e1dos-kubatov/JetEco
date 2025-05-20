@@ -48,4 +48,5 @@ public class Offer {
     private LocalDateTime createdAt;
     private boolean active;
 
+
 }

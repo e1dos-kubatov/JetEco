@@ -9,4 +9,6 @@ import java.util.List;
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     List<Offer> findByPartner(Partner partner);
     List<Offer> findByActiveTrue();
+
+    long countByActiveTrue();
 }
