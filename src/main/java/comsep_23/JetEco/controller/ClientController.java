@@ -18,7 +18,7 @@ public class ClientController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Client> registerClient(@RequestBody Client client) {
+    public ResponseEntity<Client> registerClient(@ModelAttribute Client client) {
         Client createdClient = clientService.createNewClient(client);
         return ResponseEntity.ok(createdClient);
     }

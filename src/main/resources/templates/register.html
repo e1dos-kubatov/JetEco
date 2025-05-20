@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration</title>
-    <link rel="stylesheet" href="../static/css/register.css" />
-</head>
+    <link rel="stylesheet" th:href="@{/css/register.css}"></head>
 <body>
 <div class="container">
     <form class="register-form" action="/register" method="post">
@@ -17,8 +16,8 @@
         </div>
 
         <div class="input-group">
-            <label for="email">Phone number</label>
-            <input type="text" id="email" name="email" required />
+            <label for="phone">Phone number</label>
+            <input type="text" id="phone" name="phone" required />
         </div>
 
         <div class="input-group">
@@ -36,5 +35,4 @@
     <a href="/business-signup" class="business-button">Sign up Your Business</a>
 </div>
 </body>
-</html>d
-
+</html>

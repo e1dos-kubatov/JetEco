@@ -41,7 +41,6 @@ public class PartnerService implements UserDetailsService {
 
         existingPartner.setName(partner.getName());
         existingPartner.setAddress(partner.getAddress());
-        existingPartner.setContact(partner.getContact());
         existingPartner.setPhone(partner.getPhone());
         if (partner.getPassword() != null && !partner.getPassword().isBlank()) {
             existingPartner.setPassword(passwordEncoder.encode(partner.getPassword()));

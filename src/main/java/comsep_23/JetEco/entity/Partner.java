@@ -26,8 +26,6 @@ public class Partner implements UserDetails {
     @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
-    private String contact;
 
     @Column(unique = true)
     private String phone;
