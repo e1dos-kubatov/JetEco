@@ -1,6 +1,8 @@
 package comsep_23.JetEco.controller;
 
+import comsep_23.JetEco.config.Role;
 import comsep_23.JetEco.entity.Partner;
+import comsep_23.JetEco.repository.PartnerRepository;
 import comsep_23.JetEco.service.PartnerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +14,18 @@ import java.util.Optional;
 public class PartnerController {
 
     private final PartnerService partnerService;
+    private final PartnerRepository partnerRepository;
 
-    public PartnerController(PartnerService partnerService) {
+    public PartnerController(PartnerService partnerService, PartnerRepository partnerRepository) {
         this.partnerService = partnerService;
+        this.partnerRepository = partnerRepository;
     }
 
     @PostMapping("/register-partner")
     public ResponseEntity<Partner> registerPartner(@RequestBody Partner partner) {
         Partner createdPartner = partnerService.createNewPartner(partner);
+        partner.setRole(Role.ROLE_PARTNER);
+        partnerRepository.save(partner);
         return ResponseEntity.ok(createdPartner);
     }
 

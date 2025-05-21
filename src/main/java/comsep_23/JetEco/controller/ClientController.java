@@ -1,6 +1,8 @@
 package comsep_23.JetEco.controller;
 
+import comsep_23.JetEco.config.Role;
 import comsep_23.JetEco.entity.Client;
+import comsep_23.JetEco.repository.ClientRepository;
 import comsep_23.JetEco.service.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +14,18 @@ import java.util.Optional;
 public class ClientController {
 
     private final ClientService clientService;
+    private final ClientRepository clientRepository;
 
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, ClientRepository clientRepository) {
         this.clientService = clientService;
+        this.clientRepository = clientRepository;
     }
 
     @PostMapping("/register")
     public ResponseEntity<Client> registerClient(@RequestBody Client client) {
         Client createdClient = clientService.createNewClient(client);
+        client.setRole(Role.ROLE_CLIENT);
+        clientRepository.save(client);
         return ResponseEntity.ok(createdClient);
     }
 

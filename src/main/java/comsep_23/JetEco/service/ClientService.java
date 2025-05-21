@@ -61,9 +61,15 @@ public class ClientService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
+        return clientRepository.findByPhone(phone)
+                .orElseThrow(() -> new UsernameNotFoundException("Client with number " + phone + " not found"));
     }
+
+    public Client getByPhone(String phone) {
+        return clientRepository.findByPhone(phone).orElse(null);
+    }
+
 }
 
 

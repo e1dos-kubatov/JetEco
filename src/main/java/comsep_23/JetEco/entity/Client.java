@@ -1,9 +1,11 @@
 package comsep_23.JetEco.entity;
 
 
+import comsep_23.JetEco.config.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
@@ -35,6 +37,10 @@ public class Client implements UserDetails {
 
     private boolean active = true;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
     @Override
     public String getUsername() {
         return name;
@@ -42,12 +48,7 @@ public class Client implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
