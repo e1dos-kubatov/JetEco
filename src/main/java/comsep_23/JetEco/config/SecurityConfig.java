@@ -43,13 +43,16 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .cors().disable()
-                .authorizeRequests()
-                .requestMatchers("/api/partners/register-partner", "/api/clients/register", "/login", "/register", "/register-business", "/css/**").permitAll()
-                .requestMatchers("/api/clients/**").hasRole("CLIENT")
-                .requestMatchers("/api/partners/**").hasRole("PARTNER")
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
-                .and()
+                    .authorizeHttpRequests(auth-> auth
+                    .requestMatchers("/api/partners/register-partner", "/api/clients/register", "/login", "/register", "/register-business", "/css/**").permitAll()
+                    .requestMatchers("/api/clients/**").hasRole("CLIENT")
+                    .requestMatchers("/api/partners/**").hasRole("PARTNER")
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
