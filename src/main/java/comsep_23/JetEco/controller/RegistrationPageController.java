@@ -5,20 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+
 public class RegistrationPageController {
 
+    @GetMapping("/register-business")
+    public String showBusinessRegistrationPage() {
+        return "register-business"; // имя HTML-файла без .html
+    }
+
     @GetMapping("/register")
-    public String showRegisterPage() {
-        return "register"; // templates/register.html
+    public String showClientRegistrationPage() {
+        return "register";
     }
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login"; // templates/login.html
-    }
-
-    @GetMapping("/business-signup")
-    public String showBusinessSignupPage() {
-        return "business-signup"; // templates/business-signup.html
+        return "login";
     }
 }

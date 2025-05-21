@@ -17,7 +17,7 @@ public class PartnerController {
         this.partnerService = partnerService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register-partner")
     public ResponseEntity<Partner> registerPartner(@RequestBody Partner partner) {
         Partner createdPartner = partnerService.createNewPartner(partner);
         return ResponseEntity.ok(createdPartner);
