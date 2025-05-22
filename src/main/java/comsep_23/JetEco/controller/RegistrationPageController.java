@@ -10,7 +10,7 @@ public class RegistrationPageController {
 
     @GetMapping("/register-business")
     public String showBusinessRegistrationPage() {
-        return "register-business"; // имя HTML-файла без .html
+        return "register-business";
     }
 
     @GetMapping("/register")

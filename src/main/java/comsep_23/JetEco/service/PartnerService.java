@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class PartnerService implements UserDetailsService {
+public class PartnerService  {
     private final PartnerRepository partnerRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -61,11 +61,6 @@ public class PartnerService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-        return partnerRepository.findByPhone(phone)
-                .orElseThrow(() -> new UsernameNotFoundException("Partner with number " + phone + " not found"));
-    }
 
 
     public Partner getByPhone(String phone) {

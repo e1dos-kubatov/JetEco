@@ -25,24 +25,25 @@ public class AuthService {
     private final ClientService clientService;
     private final PartnerService partnerService;
     private final RefreshTokenService refreshTokenService;
+    private final CustomUserDetailsService customUserDetailsService; // ✅ Inject this
 
     public ResponseEntity<?> login(JwtRequest request) {
         String phone = request.getPhone();
 
         Client client = clientService.getByPhone(phone);
         if (client != null) {
-            return loginClient(request);
+            return loginUser(request, "client");
         }
 
         Partner partner = partnerService.getByPhone(phone);
         if (partner != null) {
-            return loginPartner(request);
+            return loginUser(request, "partner");
         }
 
         return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Invalid phone or password"), HttpStatus.UNAUTHORIZED);
     }
 
-    private ResponseEntity<?> loginClient(JwtRequest request) {
+    private ResponseEntity<?> loginUser(JwtRequest request, String userType) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getPhone(), request.getPassword()));
@@ -50,23 +51,14 @@ public class AuthService {
             return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials"), HttpStatus.UNAUTHORIZED);
         }
 
-        UserDetails userDetails = clientService.loadUserByUsername(request.getPhone());
+        // ✅ Use the combined CustomUserDetailsService
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(request.getPhone());
         String token = jwtTokenUtils.generateToken(userDetails);
-        RefreshToken refreshToken = refreshTokenService.createClientRefreshToken(request.getPhone());
-        return ResponseEntity.ok(new JwtResponse(token, refreshToken.getToken()));
-    }
 
-    private ResponseEntity<?> loginPartner(JwtRequest request) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getPhone(), request.getPassword()));
-        } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials"), HttpStatus.UNAUTHORIZED);
-        }
+        RefreshToken refreshToken = userType.equals("client")
+                ? refreshTokenService.createClientRefreshToken(request.getPhone())
+                : refreshTokenService.createPartnerRefreshToken(request.getPhone());
 
-        UserDetails userDetails = partnerService.loadUserByUsername(request.getPhone());
-        String token = jwtTokenUtils.generateToken(userDetails);
-        RefreshToken refreshToken = refreshTokenService.createPartnerRefreshToken(request.getPhone());
         return ResponseEntity.ok(new JwtResponse(token, refreshToken.getToken()));
     }
 }

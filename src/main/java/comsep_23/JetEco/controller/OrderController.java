@@ -21,9 +21,9 @@ public class OrderController {
         return orderService.createOrder(userId, offerId);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Order> getUserOrders(@PathVariable Long userId) {
-        return orderService.getUserOrders(userId);
+    @GetMapping("/client/{clientId}")
+    public List<Order> getClientOrders(@PathVariable Long clientId) {
+        return orderService.getClientOrders(clientId);
     }
 
     @GetMapping("/offer/{offerId}")

@@ -1,6 +1,8 @@
 package comsep_23.JetEco.config;
 
 import comsep_23.JetEco.service.ClientService;
+import comsep_23.JetEco.service.CustomUserDetailsService;
+import comsep_23.JetEco.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +14,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static javax.management.Query.and;
+
 
 @Configuration
 @EnableWebSecurity
@@ -25,11 +28,10 @@ import static javax.management.Query.and;
 public class SecurityConfig {
 
     private JwtRequestFilter jwtRequestFilter;
-    private ClientService clientService;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    @Autowired
-    public void setUserService(ClientService clientService){
-        this.clientService = clientService;
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Autowired
@@ -41,24 +43,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().disable()
-                    .authorizeHttpRequests(auth-> auth
-                    .requestMatchers("/api/partners/register-partner", "/api/clients/register", "/login", "/register", "/register-business", "/css/**").permitAll()
-                    .requestMatchers("/api/clients/**").hasRole("CLIENT")
-                    .requestMatchers("/api/partners/**").hasRole("PARTNER")
-                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                    .anyRequest().permitAll()
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/partners/register-partner", "/api/clients/register", "/login", "/register", "/register-business", "/css/**").permitAll()
+                        .requestMatchers("/api/clients/**").hasRole("CLIENT")
+                        .requestMatchers("/api/partners/**").hasRole("PARTNER")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true))
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                .and()
+                        .defaultSuccessUrl("/", true)
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -68,7 +71,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(clientService);
+        provider.setUserDetailsService(customUserDetailsService);
         return provider;
     }
 

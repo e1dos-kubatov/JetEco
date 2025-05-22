@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class ClientService implements UserDetailsService {
+public class ClientService  {
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -60,11 +60,6 @@ public class ClientService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-        return clientRepository.findByPhone(phone)
-                .orElseThrow(() -> new UsernameNotFoundException("Client with number " + phone + " not found"));
-    }
 
     public Client getByPhone(String phone) {
         return clientRepository.findByPhone(phone).orElse(null);
