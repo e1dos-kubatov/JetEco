@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Корзина</title>
+  <link rel="stylesheet" href="../static.css/basket-styles.css">
+
+</head>
+<body>
+<h1>Корзина</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Продукт</th>
+    <th>Цвет</th>
+    <th>Количество</th>
+    <th>Цена</th>
+    <th>Подитог</th>
+    <th>Удалить</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="item : ${cartItems}">
+    <td th:text="${item.productName}">Название товара</td>
+    <td th:text="${item.color}">Цвет</td>
+    <td>
+      <form th:action="@{/cart/update}" method="post">
+        <input type="hidden" th:name="productId" th:value="${item.id}"/>
+        <button type="submit" name="action" value="decrease">-</button>
+        <span th:text="${item.quantity}">1</span>
+        <button type="submit" name="action" value="increase">+</button>
+      </form>
+    </td>
+    <td th:text="${item.price}">0.00</td>
+    <td th:text="${item.price * item.quantity}">0.00</td>
+    <td>
+      <form th:action="@{/cart/remove}" method="post">
+        <input type="hidden" th:name="productId" th:value="${item.id}"/>
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Итого: <span th:text="${totalPrice}">0.00</span></h2>
+
+<form th:action="@{/order/checkout}" method="post">
+  <button type="submit">Оформить заказ</button>
+</form>
+</body>
+</html>

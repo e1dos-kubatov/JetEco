@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы</title>
+    <link rel="stylesheet" href="review.css">
+</head>
+<body>
+<div class="review-container">
+    <h1>Отзывы</h1>
+
+    <section class="leave-review">
+        <h2>Оставьте свой отзыв</h2>
+        <form id="review-form">
+            <input type="text" id="name" placeholder="Ваше имя" required />
+            <textarea id="message" placeholder="Ваш отзыв" rows="4" required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
+
+    <section class="review-list">
+        <h2>Последние отзывы</h2>
+        <div class="review">
+            <p><strong>Алина:</strong> Очень понравился сервис! Всё пришло свежим и вовремя.</p>
+        </div>
+        <div class="review">
+            <p><strong>Эрмек:</strong> Удобно заказывать, и поддержка быстро отвечает. Рекомендую!</p>
+        </div>
+        <!-- Новые отзывы будут вставляться сюда через JS -->
+    </section>
+</div>
+
+<script>
+    document.getElementById('review-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if (!name || !message) return;
+
+        const reviewBlock = document.createElement('div');
+        reviewBlock.className = 'review';
+        reviewBlock.innerHTML = `<p><strong>${name}:</strong> ${message}</p>`;
+        document.querySelector('.review-list').appendChild(reviewBlock);
+
+        this.reset();
+    });
+</script>
+</body>
+</html>

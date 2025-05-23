@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0fff4;
+    margin: 0;
+    padding: 2rem;
+    color: #2f855a;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 128, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #276749;
+}
+
+section {
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+p {
+    margin: 0.3rem 0;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #2f855a;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #276749;
+}
+
+.logout {
+    background-color: #e53e3e;
+}
+
+.logout:hover {
+    background-color: #c53030;
+}
+
+.order {
+    background: #f7fafc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+.status {
+    font-weight: bold;
+    color: #38a169;
+}
