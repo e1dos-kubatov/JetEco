@@ -509,6 +509,16 @@ section {
         padding: 8px 15px;
         font-size: 0.9em;
     }
+    .loginButtons {
+        color: #4caf50;
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .header-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
 
     .hero-text h1 {
         font-size: 2.5em;
@@ -551,4 +561,36 @@ section {
         grid-row: unset;
         height: 200px;
     }
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-btn {
+    background-color: #007BFF;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+.register-btn {
+    background-color: #28a745;
+}
+
+.register-btn:hover {
+    background-color: #1e7e34;
+}
+
+.btn:active {
+    transform: scale(0.97);
 }

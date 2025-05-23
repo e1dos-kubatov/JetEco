@@ -10,4 +10,24 @@ public class HomeController {
     public String home() {
         return "home";
     }
+
+    @GetMapping("/basket")
+    public String basket() {
+        return "basket";
+    }
+
+    @GetMapping("/client-profile")
+    public String clientProfile() {
+        return "client-profile";
+    }
+
+    @GetMapping("/partner-profile")
+    public String partnerProfile() {
+        return "partners-profile";
+    }
+
+    @GetMapping("/review")
+    public String review() {
+        return "review";
+    }
 }
