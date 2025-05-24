@@ -54,6 +54,9 @@ public class PartnerService  {
         return partnerRepository.findByPhone(phone);
     }
 
+    public List<Partner> getAllPartners() {
+        return partnerRepository.findAll();
+    }
 
     public void deletePartner(Long id) {
         if (partnerRepository.existsById(id)) {

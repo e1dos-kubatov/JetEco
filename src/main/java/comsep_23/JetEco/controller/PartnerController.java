@@ -45,7 +45,11 @@ public class PartnerController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
+    @GetMapping("/partners")
+    public String showPartners(Model model) {
+        model.addText("partners");
+        return "partners";
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePartner(@PathVariable Long id) {
         partnerService.deletePartner(id);
