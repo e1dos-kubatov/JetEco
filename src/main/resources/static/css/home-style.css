@@ -1,12 +1,15 @@
-/* Basic Resets & Typography */
+
+html {
+    scroll-behavior: smooth;
+}
 
 
 :root {
-    --primary-color: #FFC000; /* Yellow */
-    --secondary-color: #333; /* Dark Grey/Black */
+    --primary-color: #FFC000;
+    --secondary-color: #333;
     --text-color: #555;
     --light-grey: #f8f8f8;
-    --dark-green: #3D6C5A; /* As seen in the bottom info block */
+    --dark-green: #3D6C5A;
     --white: #fff;
     --border-color: #eee;
 }
@@ -599,6 +602,7 @@ section {
 }
 
 .logo img {
-    height: 50px; /* Попробуйте изменить это значение (например, 40px, 60px) */
-    width: auto; /* Важно: сохраняет пропорции изображения */
+    height: 50px;
+    width: auto;
 }
+
