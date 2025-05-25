@@ -12,7 +12,7 @@
 <header class="main-header">
     <div class="container header-content">
         <div class="logo">
-            <a href="/"><img th:src="@{/css/images/jeteco_logo.png}" alt="JetEco"></a>
+            <img src="https://i.postimg.cc/CM8zvVFg/jeteco-logo.png" alt="JetEco Logo" >
         </div>
         <nav class="main-nav">
             <ul>
@@ -30,8 +30,10 @@
                 </a>
                 <span th:text="${name}" style="margin-left: 8px;"></span>
             </div>
-
-            <a href="#" class="icon-button"><i class="fas fa-search"></i></a>
+            <form class="search-bar" action="/search" method="get">
+                <input type="text" name="query" placeholder="Поиск..." />
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
             <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
             <!-- Кнопки входа и регистрации -->
             <div th:if="${name == null}">
@@ -61,19 +63,21 @@
 
     <section class="partners-section">
         <div class="container">
-            <h2>Наши партнеры</h2>
+            <h2>Как заказать</h2>
             <p class="section-description">Качество продукции является нашим приоритетом, и мы работаем только с лучшими, чтобы свежесть пока она не окажется в ваших руках.</p>
             <div class="partner-cards">
                 <div class="partner-card">
-                    <img src="https://via.placeholder.com/100x100?text=Easy+Order" alt="Easy Order Icon">
-                    <h3>Легко заказать</h3>
-                    <p>Закажите и заберите за 30 фваовл</p>
+                    <img src="https://i.postimg.cc/cCpcqqHz/2025-05-25-20-20-06.png" alt="Зеленая кнопка">
+                    <h3>Нажмите добавить в корзину</h3>
                 </div>
                 <div class="partner-card">
-                    <img src="https://via.placeholder.com/100x100?text=Good+Quality" alt="Good Quality Icon">
-                    <h3>Хорошее качество</h3>
-                    <p>Качественные и свежие продукты</p>
+                    <img src="https://i.postimg.cc/R0T9N4xc/2025-05-25-20-32-29.png" alt="Корзиан в верхнем правом углу">
+                    <h3>Нажмите на корзину</h3>
                 </div>
+                    <div class="partner-card">
+                        <img src="https://i.postimg.cc/cCpcqqHz/2025-05-25-20-20-06.png" alt="Подтвердить">
+                        <h3>Нажмите подтвердить заказ и можете забрать его в филиале</h3>
+                    </div>
             </div>
         </div>
     </section>
@@ -84,48 +88,47 @@
             <p class="section-description">Все продукты, представленные в приложении, проходят контроль качества и предлагаются в несколько часов от их приготовления.</p>
             <div class="food-items-grid">
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1563227807-6c38260d5b43?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 1">
+                    <img src="https://images.unsplash.com/photo-1569419904069-081571452242?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 1">
                     <h3>Бокс с едой из Bublik</h3>
                     <p>400 грамм</p>
                     <div class="price-like">
-                        <span>700 сом</span>
-                        <i class="far fa-heart"></i>
+                        <span>190 сом</span>
+                        <button class="add-to-cart-btn">Добавить в корзину</button>
                     </div>
                 </div>
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1540189549-3617173bd73f?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 2">
+                    <img src="https://images.unsplash.com/photo-1644203542040-2df37e3580ef?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 2">
                     <h3>Бокс с едой из Belagio</h3>
                     <p>800 грамм</p>
                     <div class="price-like">
-                        <span>800 сом</span>
-                        <i class="far fa-heart"></i>
+                        <span>200 сом</span>
+                        <button class="add-to-cart-btn">Добавить в корзину</button>
                     </div>
                 </div>
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7fe?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sandwich">
-                    <h3>Сендвич из All Burger</h3>
+                    <img src="https://images.unsplash.com/photo-1616645258469-ec681c17f3ee?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sandwich">
+                    <h3>Бокс с едой из Ula Food</h3>
                     <p>500 грамм</p>
                     <div class="price-like">
-                        <span>50 сом</span>
-                        <i class="far fa-heart"></i>
+                        <span>100 сом</span>
+                        <button class="add-to-cart-btn">Добавить в корзину</button>
                     </div>
                 </div>
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1620247605915-181b89694e9f?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 3">
+                    <img src="https://media.istockphoto.com/id/1297636943/photo/fish-diet-salad-with-tuna-tomatoes-arugula-on-light-background-healthy-vegetarian-lunch.webp?a=1&b=1&s=612x612&w=0&k=20&c=uHpQv8xLcf5OlKcg8mKrSftDBtA0ifartSYDc72zyxo=" alt="Food Box 3">
                     <h3>Бокс с едой из Capito</h3>
                     <p>600 грамм</p>
                     <div class="price-like">
-                        <span>600 сом</span>
-                        <i class="far fa-heart"></i>
+                        <span>200 сом</span>
+                        <button class="add-to-cart-btn">Добавить в корзину</button>
                     </div>
                 </div>
             </div>
             <div class="all-products-button-wrapper">
-                <a href="#" class="button button-tertiary">Все продукты</a>
+                <a href="/partners" class="btn button-primary">Все продукты</a>
             </div>
         </div>
     </section>
-
     <section class="info-block">
         <div class="container">
             <p>Все продукты, представленные в приложении, проходят контроль качества и предлагаются за несколько часов до истечения срока годности. Шеф-повара магазина упаковывают еду в чистые контейнеры, соблюдая санитарные нормы, а также вкус и свежесть еда, как всегда, просто с ограниченным сроком реализации. Вместе мы помогаем сократить пищевые отходы и заботимся о будущем.</p>
@@ -140,7 +143,7 @@
             <p>Вкусно. Выгодно. Экологично.</p>
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.instagram.com/soullovesoil/"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
@@ -148,13 +151,13 @@
             <h3>Company</h3>
             <ul>
                 <li><a href="#">О нас</a></li>
-                <li><a href="#">Партнеры</a></li>
-                <li><a href="#">Как это работает</a></li>
+                <li><a href="/partners">Партнеры</a></li>
+                <li><a href="/how-it-works">Как это работает</a></li>
             </ul>
         </div>
         <div class="footer-section footer-contact">
             <h3>Наши контакты</h3>
-            <p><a href="mailto:jeteco@example.com">jeteco@example.com</a></p>
+            <p><a class="example" href="mailto:jeteco@example.com">jeteco@example.com</a> </p>
         </div>
     </div>
     <div class="footer-bottom">
