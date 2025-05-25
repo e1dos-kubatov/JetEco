@@ -17,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "clients")
 public class Client implements UserDetails {
 
@@ -39,6 +40,12 @@ public class Client implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private String email;
+
+    private String pictureUrl;
+
+    private String authProvider;
 
 
     @Override

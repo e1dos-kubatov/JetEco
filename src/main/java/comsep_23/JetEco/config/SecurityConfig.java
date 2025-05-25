@@ -1,11 +1,9 @@
 package comsep_23.JetEco.config;
 
-import comsep_23.JetEco.service.ClientService;
+import comsep_23.JetEco.service.OAuth2ClientService;
 import comsep_23.JetEco.service.CustomUserDetailsService;
-import comsep_23.JetEco.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,13 +12,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.*;
+import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-
 
 @Configuration
 @EnableWebSecurity
@@ -29,16 +24,18 @@ public class SecurityConfig {
 
     private JwtRequestFilter jwtRequestFilter;
     private final CustomUserDetailsService customUserDetailsService;
+    private final OAuth2ClientService OAuth2ClientService;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+                          OAuth2ClientService OAuth2ClientService) {
         this.customUserDetailsService = customUserDetailsService;
+        this.OAuth2ClientService = OAuth2ClientService;
     }
 
     @Autowired
     public void setJwtRequestFilter(JwtRequestFilter jwtRequestFilter) {
         this.jwtRequestFilter = jwtRequestFilter;
     }
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,6 +51,9 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(OAuth2ClientService)
+                        )
                         .defaultSuccessUrl("/", true)
                 )
                 .sessionManagement(session -> session
@@ -85,3 +85,4 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }
+
