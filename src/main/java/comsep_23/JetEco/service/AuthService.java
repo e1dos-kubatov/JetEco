@@ -25,7 +25,7 @@ public class AuthService {
     private final ClientService clientService;
     private final PartnerService partnerService;
     private final RefreshTokenService refreshTokenService;
-    private final CustomUserDetailsService customUserDetailsService; // ✅ Inject this
+    private final CustomUserDetailsService customUserDetailsService;
 
     public ResponseEntity<?> login(JwtRequest request) {
         String phone = request.getPhone();
@@ -51,7 +51,6 @@ public class AuthService {
             return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials"), HttpStatus.UNAUTHORIZED);
         }
 
-        // ✅ Use the combined CustomUserDetailsService
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(request.getPhone());
         String token = jwtTokenUtils.generateToken(userDetails);
 

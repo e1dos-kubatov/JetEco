@@ -12,7 +12,7 @@
 <header class="main-header">
     <div class="container header-content">
         <div class="logo">
-            <a href="/"><img src="https://via.placeholder.com/100x40?text=JetEco" alt="JetEco Logo"></a>
+            <a href="/"><img th:src="@{/css/images/jeteco_logo.png}" alt="JetEco"></a>
         </div>
         <nav class="main-nav">
             <ul>
@@ -22,24 +22,23 @@
             </ul>
         </nav>
         <div class="header-actions">
-            <!-- Кнопки входа и регистрации, если пользователь не вошёл -->
-            <div th:if="${name == null}">
-                <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
-                <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
-            </div>
-
-            <!-- Фото профиля справа, если пользователь авторизован -->
-            <div th:if="${name != null}" class="user-profile" style="display: flex; align-items: center; gap: 12px;">
-                <a href="/profile" title="Профиль">
-                    <img th:src="${picture}" alt="Profile picture"
-                         style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
-                </a>
+            <!-- Отображение профиля пользователя Google -->
+            <div th:if="${name}" class="user-profile">
+                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
+                <span th:text="${name}" style="margin-left: 8px;"></span>
             </div>
 
             <a href="#" class="icon-button"><i class="fas fa-search"></i></a>
             <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
-        </div>
+            <!-- Кнопки входа и регистрации -->
+            <div th:if="${name == null}">
+                <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
+                <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
+                <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
 
+            </div>
+
+        </div>
     </div>
 </header>
 
@@ -49,7 +48,7 @@
             <div class="hero-text">
                 <h4>Вкусно. Выгодно. Экологично.</h4>
                 <p>Откройте для себя новые вкусы и здоровые привычки с JetEco. Мы предлагаем свежие и качественные продукты с доставкой прямо к вашему порогу.</p>
-                <a href="#" class="button button-primary">Заказать сейчас</a>
+                <a href="#how-to-order-section" class="button button-primary">Заказать сейчас</a>
             </div>
             <div class="hero-images">
                 <img src="https://images.unsplash.com/photo-1543353071-c953d88f7033?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 1" class="food-img food-img-large">
