@@ -1,7 +1,8 @@
 /* Basic Resets & Typography */
 :root {
-    --primary-color: #FFC000; /* Yellow */
+    --primary-color: #28a745; /*  */
     --secondary-color: #333; /* Dark Grey/Black */
+    --third-color: #1e7e34;
     --text-color: #555;
     --light-grey: #f8f8f8;
     --dark-green: #3D6C5A; /* As seen in the bottom info block */
@@ -42,6 +43,10 @@ h1, h2, h3 {
     margin-bottom: 15px;
 }
 
+h4{
+    color: whitesmoke;
+    margin-bottom: 15px;
+}
 p {
     margin-bottom: 10px;
 }
@@ -57,13 +62,13 @@ p {
 
 .button-primary {
     background-color: var(--primary-color);
-    color: var(--secondary-color);
+    color: white;
     border: 1px solid var(--primary-color);
 }
 
 .button-primary:hover {
-    background-color: #e0ac00;
-    border-color: #e0ac00;
+    background-color: #1e7e34;
+    border-color: #1e7e34;
 }
 
 .button-secondary {
@@ -156,12 +161,36 @@ p {
 }
 
 /* Hero Section */
+
 .hero-section {
-    background-color: var(--light-grey);
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1635802270753-00ba6b11f3fd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    z-index: 1;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* тёмный полупрозрачный слой */
+    z-index: 2;
+}
+.hero-content {
+    position: relative;
+    z-index: 3; /* текст и картинки поверх затемнения */
+}
+.hero-section {
+
     padding: 80px 0;
     position: relative;
     overflow: hidden; /* For the background shapes */
 }
+
 
 .hero-content {
     display: flex;
@@ -181,11 +210,17 @@ p {
     margin-bottom: 20px;
     color: var(--secondary-color);
 }
+.hero-text h4 {
+    font-size: 3.5em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: whitesmoke;
+}
 
 .hero-text p {
     font-size: 1.1em;
     margin-bottom: 30px;
-    color: var(--text-color);
+    color: whitesmoke;
 }
 
 .hero-images {
@@ -203,7 +238,11 @@ p {
     object-fit: cover;
     width: 100%;
     height: 100%;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow:
+        /* зелёная тень влево */
+            -2px 0 5px rgb(40, 167, 69),
+                /* существующая чёрная тень вниз */
+            0 10px 20px rgba(0,0,0,0.1);
 }
 
 .food-img-large {
@@ -576,11 +615,11 @@ section {
 }
 
 .login-btn {
-    background-color: #007BFF;
+    background-color: #28a745;
 }
 
 .login-btn:hover {
-    background-color: #0056b3;
+    background-color: #1e7e34;
 }
 
 .register-btn {
