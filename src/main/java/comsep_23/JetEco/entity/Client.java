@@ -58,6 +58,20 @@ public class Client implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    public Client(Client other) {
+        this.id = other.id;
+        this.phone = other.phone;
+        this.password = other.password;
+        this.name = other.name;
+        this.registeredAt = other.registeredAt;
+        this.active = other.active;
+        this.role = other.role;
+        this.email = other.email;
+        this.pictureUrl = other.pictureUrl;
+        this.authProvider = other.authProvider;
+    }
+
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

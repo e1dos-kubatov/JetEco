@@ -2,6 +2,7 @@ package comsep_23.JetEco.service;
 
 import comsep_23.JetEco.entity.Client;
 import comsep_23.JetEco.config.Role;
+import comsep_23.JetEco.entity.CustomOAuth2User;
 import comsep_23.JetEco.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,29 +28,21 @@ public class CustomOAuth2ClientService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         String email = oAuth2User.getAttribute("email");
 
-        // 1. Поиск по email
         Client client = clientRepository.findByEmail(email).orElseGet(() -> {
             Client newClient = new Client();
             newClient.setEmail(email);
             newClient.setName(oAuth2User.getAttribute("name"));
             newClient.setAuthProvider("google");
             newClient.setPhone("google_" + UUID.randomUUID());
-            newClient.setPassword("oauth2user"); // можно закодировать
-            newClient.setRole(Role.ROLE_CLIENT); // default role
+            newClient.setPassword("oauth2user");
+            newClient.setRole(Role.ROLE_CLIENT); // или как нужно
             newClient.setRegisteredAt(LocalDateTime.now());
             newClient.setActive(true);
             newClient.setPictureUrl(oAuth2User.getAttribute("picture"));
             return clientRepository.save(newClient);
         });
 
-        // 2. Установка правильной роли
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(client.getRole().name()));
-
-        // 3. Возвращаем кастомный OAuth2User с правильной ролью
-        return new DefaultOAuth2User(
-                authorities,
-                oAuth2User.getAttributes(),
-                "email" // имя атрибута, который будет использоваться как "username"
-        );
+        return new CustomOAuth2User(client, oAuth2User.getAttributes());
     }
+
 }

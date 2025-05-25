@@ -1,5 +1,6 @@
 package comsep_23.JetEco.controller;
 
+import comsep_23.JetEco.entity.Client;
 import comsep_23.JetEco.service.PartnerService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,26 +21,20 @@ public class HomeController {
     public HomeController(PartnerService partnerService) {
         this.partnerService = partnerService;
     }
+
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
-        if (oauthUser != null) {
-            String name = oauthUser.getAttribute("name");
-            String picture = oauthUser.getAttribute("picture");
-            String email = oauthUser.getAttribute("email");
-            model.addAttribute("name", oauthUser.getAttribute("name"));
-            model.addAttribute("picture", oauthUser.getAttribute("picture"));
-            model.addAttribute("email", oauthUser.getAttribute("email"));
-
-            Collection<? extends GrantedAuthority> authorities = oauthUser.getAuthorities();
-            String role = authorities.stream()
-                    .findFirst()
-                    .map(GrantedAuthority::getAuthority)
-                    .orElse("ROLE_ANONYMOUS");
-
-            model.addAttribute("role", role);
+    public String home(@AuthenticationPrincipal Client client, Model model) {
+        if (client != null) {
+            model.addAttribute("name", client.getName());
+            model.addAttribute("picture", client.getPictureUrl());
+            model.addAttribute("email", client.getEmail());
+            model.addAttribute("role", client.getRole().name());
+        } else {
+            model.addAttribute("role", "ROLE_ANONYMOUS");
         }
         return "home";
     }
+
 
 
     @GetMapping("/basket")
@@ -48,12 +43,34 @@ public class HomeController {
     }
 
     @GetMapping("/client-profile")
-    public String clientProfile() {
+    public String clientProfile(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+        if (oauthUser != null) {
+            String name = oauthUser.getAttribute("name");
+            String picture = oauthUser.getAttribute("picture");
+            String email = oauthUser.getAttribute("email");
+            String phone = oauthUser.getAttribute("phone");
+            String registeredAt = oauthUser.getAttribute("registeredAt");
+            model.addAttribute("name", oauthUser.getAttribute("name"));
+            model.addAttribute("picture", oauthUser.getAttribute("picture"));
+            model.addAttribute("email", oauthUser.getAttribute("email"));
+            model.addAttribute("phone", oauthUser.getAttribute("phone"));
+            model.addAttribute("registeredAt", oauthUser.getAttribute("registeredAt"));
+        }
         return "client-profile";
     }
 
     @GetMapping("/partner-profile")
-    public String partnerProfile() {
+    public String partnerProfile(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+        if (oauthUser != null) {
+            String name = oauthUser.getAttribute("name");
+            String picture = oauthUser.getAttribute("picture");
+            String email = oauthUser.getAttribute("email");
+            String phone = oauthUser.getAttribute("phone");
+            model.addAttribute("name", oauthUser.getAttribute("name"));
+            model.addAttribute("picture", oauthUser.getAttribute("picture"));
+            model.addAttribute("email", oauthUser.getAttribute("email"));
+            model.addAttribute("phone", oauthUser.getAttribute("phone"));
+        }
         return "partners-profile";
     }
 

@@ -1,42 +1,33 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Профиль Клиента</title>
-  <link rel="stylesheet" href="/css/client-profile.css">
+  <title>Профиль</title>
+  <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
+<div class="container">
+  <h1>Профиль пользователя</h1>
 
-<div class="profile-container">
-  <h1>Профиль Клиента</h1>
+  <div class="profile-card">
+    <p><strong>Имя:</strong> <span th:text="${name}"></span></p>
+    <p><strong>Телефон:</strong> <span th:text="${phone}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${email}"></span></p>
+    <p><strong>Дата регистрации:</strong> <span th:text="${registeredAt}"></span></p>
+  </div>
 
-  <section class="user-info">
-    <h2>Личная информация</h2>
-    <p><strong>Имя:</strong> Асылбек Токтогулов</p>
-    <p><strong>Email:</strong> asylbek@example.com</p>
-    <p><strong>Номер телефона:</strong> +996 700 123 456</p>
-    <p><strong>Город:</strong> Бишкек</p>
-    <button>Редактировать</button>
-  </section>
+  <div th:if="${role == 'PARTNER'}" class="profile-card">
+    <p><strong>Название компании:</strong> <span th:text="${user.name}"></span></p>
+    <p><strong>Телефон:</strong> <span th:text="${user.phone}"></span></p>
+    <p><strong>Адрес:</strong> <span th:text="${user.address}"></span></p>
+    <p><strong>Дата регистрации:</strong> <span th:text="${user.registeredAt}"></span></p>
+  </div>
 
-  <section class="order-history">
-    <h2>История заказов</h2>
-    <div class="order">
-      <p><strong>Заказ #1245</strong> — 3 товара — <span class="status">Доставлен</span></p>
-      <p>Дата: 21 мая 2025 — Сумма: 850 KGS</p>
-    </div>
-    <div class="order">
-      <p><strong>Заказ #1221</strong> — 1 товар — <span class="status">Отменён</span></p>
-      <p>Дата: 15 мая 2025 — Сумма: 250 KGS</p>
-    </div>
-  </section>
-
-  <section class="settings">
-    <h2>Настройки</h2>
-    <button>Изменить пароль</button>
-    <button class="logout">Выйти из аккаунта</button>
-  </section>
+  <a href="/" class="back-button">Назад</a>
 </div>
-
+<script th:inline="javascript">
+  const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+  console.log("Проверка роли: ", role);
+</script>
 </body>
 </html>
