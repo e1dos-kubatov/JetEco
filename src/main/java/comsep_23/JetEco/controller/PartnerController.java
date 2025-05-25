@@ -1,5 +1,6 @@
 package comsep_23.JetEco.controller;
 
+import ch.qos.logback.core.model.Model;
 import comsep_23.JetEco.config.Role;
 import comsep_23.JetEco.entity.Partner;
 import comsep_23.JetEco.repository.PartnerRepository;
@@ -7,6 +8,7 @@ import comsep_23.JetEco.service.PartnerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -43,6 +45,11 @@ public class PartnerController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/partners")
+    public String showPartners(Model model) {
+        model.addText("partners");
+        return "partners";
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePartner(@PathVariable Long id) {
         partnerService.deletePartner(id);

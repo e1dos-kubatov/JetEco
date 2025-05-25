@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Наши партнёры</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/partners.css}">
+</head>
+<body>
+<div class="container">
+  <h1>Партнеры</h1>
+  <div class="partner-list">
+    <div class="partner-card" th:each="partner : ${partners}">
+      <h2 th:text="${partner.name}"></h2>
+      <p><strong>Адрес:</strong> <span th:text="${partner.address}"></span></p>
+      <p><strong>Телефон:</strong> <span th:text="${partner.phone}"></span></p>
+
+      <a href="/" class="back-button">Назад</a></div>
+
+  </div>
+  </div>
+</body>
+</html>

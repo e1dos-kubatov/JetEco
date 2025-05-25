@@ -1,11 +1,16 @@
-/* Basic Resets & Typography */
+
+html {
+    scroll-behavior: smooth;
+}
+
+
 :root {
     --primary-color: #28a745; /*  */
     --secondary-color: #333; /* Dark Grey/Black */
     --third-color: #1e7e34;
     --text-color: #555;
     --light-grey: #f8f8f8;
-    --dark-green: #3D6C5A; /* As seen in the bottom info block */
+    --dark-green: #3D6C5A;
     --white: #fff;
     --border-color: #eee;
 }
@@ -106,7 +111,7 @@ p {
 
 /* Header */
 .main-header {
-    background-color: var(--white);
+    background-color: var(--light-grey);
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
@@ -118,7 +123,8 @@ p {
 }
 
 .logo img {
-    height: 40px; /* Adjust as needed */
+    height: 40px;
+    width: auto;
 }
 
 .main-nav ul {
@@ -190,7 +196,6 @@ p {
     position: relative;
     overflow: hidden; /* For the background shapes */
 }
-
 
 .hero-content {
     display: flex;
@@ -633,3 +638,9 @@ section {
 .btn:active {
     transform: scale(0.97);
 }
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+

@@ -12,22 +12,30 @@
 <header class="main-header">
     <div class="container header-content">
         <div class="logo">
-            <h1>
-                JetEco
-            </h1>
+            <a href="/"><img src="https://via.placeholder.com/100x40?text=JetEco" alt="JetEco Logo"></a>
         </div>
         <nav class="main-nav">
             <ul>
-                <li><a href="/" class="active">Домашняя страница</a></li>
-                <li><a href="#">Партнеры</a></li>
-                <li><a href="#">Как это работает</a></li>
+                <li><a href="/about" class="active">О нас</a></li>
+                <li><a href="/partners">Партнёры</a></li>
+                <li><a href="how-it-works">Как это работает</a></li>
             </ul>
         </nav>
         <div class="header-actions">
+            <!-- Отображение профиля пользователя Google -->
+            <div th:if="${name}" class="user-profile">
+                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
+                <span th:text="${name}" style="margin-left: 8px;"></span>
+            </div>
+
             <a href="#" class="icon-button"><i class="fas fa-search"></i></a>
             <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
-            <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
-            <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
+            <!-- Кнопки входа и регистрации -->
+            <div th:if="${name == null}">
+                <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
+                <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
+            </div>
+
         </div>
     </div>
 </header>
@@ -38,17 +46,7 @@
             <div class="hero-text">
                 <h4>Вкусно. Выгодно. Экологично.</h4>
                 <p>Откройте для себя новые вкусы и здоровые привычки с JetEco. Мы предлагаем свежие и качественные продукты с доставкой прямо к вашему порогу.</p>
-                <a href="#" class="button button-primary" onclick="scrollDown()" >Заказать сейчас</a>
-                <script>
-                    function scrollDown() {
-                        window.scrollBy({
-                            top: 1150, // количество пикселей вниз
-                            left: 0,
-                            behavior: 'smooth' // плавная прокрутка
-                        });
-                    }
-                </script>
-
+                <a href="#" class="button button-primary">Заказать сейчас</a>
             </div>
             <div class="hero-images">
                 <img src="https://images.unsplash.com/photo-1543353071-c953d88f7033?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 1" class="food-img food-img-large">
@@ -77,7 +75,7 @@
         </div>
     </section>
 
-    <section class="how-to-order-section">
+    <section id="how-to-order-section" class="how-to-order-section">
         <div class="container">
             <h2>Что заказывают</h2>
             <p class="section-description">Все продукты, представленные в приложении, проходят контроль качества и предлагаются в несколько часов от их приготовления.</p>

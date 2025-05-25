@@ -66,6 +66,7 @@ button:hover {
 
 .center-btn {
     display: flex;
+    display: inline-block;
     justify-content: center;
     margin-top: 1rem;
     gap: 2rem;
