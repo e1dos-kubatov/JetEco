@@ -55,6 +55,15 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/profile", true)
                         .permitAll()
                 )
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+                .and()
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
                         .userInfoEndpoint(userInfo -> userInfo
@@ -67,8 +76,7 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
-        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                );
         return http.build();
     }
 
@@ -90,5 +98,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
 }
 
