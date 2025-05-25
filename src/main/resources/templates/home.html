@@ -22,11 +22,6 @@
             </ul>
         </nav>
         <div class="header-actions">
-            <!-- Отображение профиля пользователя Google -->
-            <div th:if="${name}" class="user-profile">
-                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
-                <span th:text="${name}" style="margin-left: 8px;"></span>
-            </div>
             <form class="search-bar" action="/search" method="get">
                 <input type="text" name="query" placeholder="Поиск..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
@@ -39,7 +34,10 @@
                 <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
 
             </div>
-
+            <div th:if="${name}" class="user-profile">
+                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
+                <span class="profile-name" th:text="${name}"></span>
+            </div>
         </div>
     </div>
 </header>

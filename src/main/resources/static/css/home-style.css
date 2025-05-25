@@ -108,6 +108,7 @@ p {
     color: var(--secondary-color);
     cursor: pointer;
     margin-left: 20px;
+    margin-right: 23px;
 }
 .icon-button {
     display: inline-flex;
@@ -146,6 +147,14 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.user-profile{
+    display: flex;
+    align-content: center;
+}
+.profile-name{
+    margin-top: 2px;
+    margin-left: 8px;
 }
 
 .logo img {
