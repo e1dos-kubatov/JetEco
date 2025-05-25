@@ -24,7 +24,10 @@
         <div class="header-actions">
             <!-- Отображение профиля пользователя Google -->
             <div th:if="${name}" class="user-profile">
-                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
+                <a href="/profile" title="Профиль">
+                    <img th:src="${picture}" alt="Profile picture"
+                         style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
+                </a>
                 <span th:text="${name}" style="margin-left: 8px;"></span>
             </div>
 
@@ -34,8 +37,6 @@
             <div th:if="${name == null}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
-                <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
-
             </div>
 
         </div>
