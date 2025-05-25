@@ -163,5 +163,34 @@
         </div>
     </div>
 </footer>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const avatar = document.getElementById("profile-avatar");
+        if (avatar) {
+            avatar.addEventListener("click", function () {
+                const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+
+                switch (role) {
+                    case 'ROLE_CLIENT':
+                        window.location.href = '/client-profile';
+                        break;
+                    case 'ROLE_PARTNER':
+                        window.location.href = '/partner-profile';
+                        break;
+                    case 'ROLE_ADMIN':
+                        window.location.href = '/admin';
+                        break;
+                    default:
+                        window.location.href = '/';
+                }
+            });
+        }
+    });
+</script>
+<script th:inline="javascript">
+    const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+    console.log("Проверка роли: ", role);
+</script>
+
 </body>
 </html>

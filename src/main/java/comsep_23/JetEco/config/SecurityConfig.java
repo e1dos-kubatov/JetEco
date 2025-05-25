@@ -52,7 +52,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/profile", true)
                         .permitAll()
                 )
                 .oauth2Login(oauth -> oauth
