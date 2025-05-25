@@ -108,6 +108,23 @@ p {
     cursor: pointer;
     margin-left: 20px;
 }
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+.icon-button:hover {
+    background-color: #555;
+}
 
 /* Header */
 .main-header {
@@ -244,16 +261,14 @@ p {
     width: 100%;
     height: 100%;
     box-shadow:
-        /* зелёная тень влево */
             -2px 0 5px rgb(40, 167, 69),
-                /* существующая чёрная тень вниз */
             0 10px 20px rgba(0,0,0,0.1);
 }
 
 .food-img-large {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
-    height: 400px; /* fixed height for large image */
+    height: 400px;
 }
 
 .food-img-small-top {
