@@ -4,6 +4,7 @@ import comsep_23.JetEco.config.Role;
 import comsep_23.JetEco.entity.Client;
 import comsep_23.JetEco.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.*;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.*;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class OAuth2ClientService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
 
     private final ClientRepository clientRepository;
 

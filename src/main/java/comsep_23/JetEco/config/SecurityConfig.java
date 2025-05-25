@@ -47,26 +47,30 @@ public class SecurityConfig {
                         .requestMatchers("/api/clients/**").hasRole("CLIENT")
                         .requestMatchers("/api/partners/**").hasRole("PARTNER")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/profile").authenticated()
                         .anyRequest().permitAll()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/profile", true)
+                        .permitAll()
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(OAuth2ClientService)
                         )
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/profile", true)
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
-
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
+                );
         return http.build();
     }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
