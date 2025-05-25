@@ -10,7 +10,7 @@ html {
     --third-color: #1e7e34;
     --text-color: #555;
     --light-grey: #f8f8f8;
-    --dark-green: #3D6C5A;
+    --dark-green: #1e7e34;
     --white: #fff;
     --border-color: #eee;
 }
@@ -22,6 +22,7 @@ html {
 }
 
 body {
+    padding-top: 80px; /* примерно высота твоего header */
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
@@ -128,22 +129,34 @@ p {
 
 /* Header */
 .main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: var(--light-grey);
-    padding: 15px 0;
+    padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    z-index: 999;
 }
 
-.header-content {
+.container.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo img {
-    height: 40px;
+    height: 60px; /* сделай больше, например 80px, если хочешь */
     width: auto;
+    display: block;
 }
 
+.logo {
+    flex-shrink: 0; /* чтобы не сжимался */
+}
 .main-nav ul {
     display: flex;
 }
@@ -173,6 +186,34 @@ p {
     height: 2px;
     background-color: var(--primary-color);
 }
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 10px;
+    height: 36px;
+    margin-right: 15px; /* отступ от других элементов */
+}
+
+.search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+    width: 150px; /* или auto/100% если нужно */
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+    color: #333;
+    font-size: 16px;
+}
+
 
 .header-actions {
     display: flex;
@@ -326,9 +367,9 @@ section {
 }
 
 .partner-card img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 5px;
 }
 
 .partner-card h3 {
@@ -382,12 +423,13 @@ section {
     margin: 0 15px 10px;
 }
 
+/* Контейнер с ценой и кнопкой */
 .price-like {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 15px 15px;
-    margin-top: auto; /* Pushes to the bottom */
+    margin-top: auto; /* чтобы "прилипало" к низу карточки */
 }
 
 .price-like span {
@@ -396,14 +438,25 @@ section {
     font-size: 1.2em;
 }
 
-.price-like .fa-heart {
-    color: #ccc;
+/* Стили кнопки "Добавить в корзину" */
+.add-to-cart-btn {
+    padding: 6px 14px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: color 0.2s ease;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #3a7d3a; /* чуть темнее при ховере */
 }
 
 .price-like .fa-heart:hover {
-    color: #ff6b6b; /* Red on hover */
+    color: #ff6b6b; /* Красный при наведении на сердечко */
 }
 
 .all-products-button-wrapper {
@@ -658,4 +711,6 @@ section {
     height: 50px;
     width: auto;
 }
-
+.example{
+    color: whitesmoke;
+}
