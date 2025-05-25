@@ -36,6 +36,8 @@
             <div th:if="${name == null}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
+                <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
+
             </div>
 
         </div>
@@ -47,19 +49,9 @@
         <div class="container hero-content">
             <div class="hero-text">
                 <h4>Вкусно. Выгодно. Экологично.</h4>
-                <p>JetEco — платформа, где ты можешь выгодно покупать качественные продукты и блюда, которые заведения готовы отдать по сниженной цене. Успей забрать, пока не разобрали!</p>
-                <button class="btn button-primary" onclick="scrollDown()">Заказать сейчас</button>
+                <p>Откройте для себя новые вкусы и здоровые привычки с JetEco. Мы предлагаем свежие и качественные продукты с доставкой прямо к вашему порогу.</p>
+                <a href="#how-to-order-section" class="button button-primary">Заказать сейчас</a>
             </div>
-            <script>
-                function scrollDown() {
-                    window.scrollBy({
-                        top: 1222, // количество пикселей вниз
-                        left: 0,
-                        behavior: 'smooth' // плавная прокрутка
-                    });
-                }
-            </script>
-
             <div class="hero-images">
                 <img src="https://images.unsplash.com/photo-1543353071-c953d88f7033?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 1" class="food-img food-img-large">
                 <img src="https://images.unsplash.com/photo-1632142334511-8f24c3d3ae79?q=80&w=3088&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 2" class="food-img food-img-small-top">
@@ -173,5 +165,34 @@
         </div>
     </div>
 </footer>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const avatar = document.getElementById("profile-avatar");
+        if (avatar) {
+            avatar.addEventListener("click", function () {
+                const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+
+                switch (role) {
+                    case 'ROLE_CLIENT':
+                        window.location.href = '/client-profile';
+                        break;
+                    case 'ROLE_PARTNER':
+                        window.location.href = '/partner-profile';
+                        break;
+                    case 'ROLE_ADMIN':
+                        window.location.href = '/admin';
+                        break;
+                    default:
+                        window.location.href = '/';
+                }
+            });
+        }
+    });
+</script>
+<script th:inline="javascript">
+    const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+    console.log("Проверка роли: ", role);
+</script>
+
 </body>
 </html>

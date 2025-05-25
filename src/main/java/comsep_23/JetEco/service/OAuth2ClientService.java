@@ -1,18 +1,23 @@
 package comsep_23.JetEco.service;
 
+import comsep_23.JetEco.config.Role;
 import comsep_23.JetEco.entity.Client;
 import comsep_23.JetEco.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.*;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class OAuth2ClientService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
 
     private final ClientRepository clientRepository;
 
@@ -33,8 +38,11 @@ public class OAuth2ClientService implements OAuth2UserService<OAuth2UserRequest,
                     .email(email)
                     .pictureUrl(picture)
                     .authProvider("google")
-                    .phone("google")
+                    .phone("google_" + UUID.randomUUID())
                     .password("google")
+                    .role(Role.ROLE_CLIENT)
+                    .registeredAt(LocalDateTime.now())
+                    .active(true)
                     .build();
             return clientRepository.save(newUser);
         });

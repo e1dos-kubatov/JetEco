@@ -23,7 +23,7 @@ public class ClientService  {
 
 
     public Client createNewClient(Client client) {
-        if (clientRepository.findByPhone(client.getPhone()).isPresent()) {
+        if (clientRepository.findByPhone(client.getPhone()).isPresent() & !clientRepository.findByPhone(client.getPhone()).equals("google")) {
             throw new RuntimeException("Client with this phone number already exists.");
         }
 

@@ -1,6 +1,6 @@
 package comsep_23.JetEco.config;
 
-import comsep_23.JetEco.service.OAuth2ClientService;
+import comsep_23.JetEco.service.CustomOAuth2ClientService;
 import comsep_23.JetEco.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -24,12 +24,14 @@ public class SecurityConfig {
 
     private JwtRequestFilter jwtRequestFilter;
     private final CustomUserDetailsService customUserDetailsService;
-    private final OAuth2ClientService OAuth2ClientService;
+    private final CustomOAuth2ClientService CustomOAuth2ClientService;
+    private final OAuth2AuthenticationSuccessHandler successHandler;
 
     public SecurityConfig(CustomUserDetailsService customUserDetailsService,
-                          OAuth2ClientService OAuth2ClientService) {
+                          CustomOAuth2ClientService CustomOAuth2ClientService, OAuth2AuthenticationSuccessHandler successHandler) {
         this.customUserDetailsService = customUserDetailsService;
-        this.OAuth2ClientService = OAuth2ClientService;
+        this.CustomOAuth2ClientService = CustomOAuth2ClientService;
+        this.successHandler = successHandler;
     }
 
     @Autowired
@@ -47,18 +49,21 @@ public class SecurityConfig {
                         .requestMatchers("/api/clients/**").hasRole("CLIENT")
                         .requestMatchers("/api/partners/**").hasRole("PARTNER")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/", "/css/**", "/js/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
+                        .successHandler(successHandler)
                         .userInfoEndpoint(userInfo -> userInfo
-                                .userService(OAuth2ClientService)
+                                .userService(CustomOAuth2ClientService)
                         )
                         .defaultSuccessUrl("/", true)
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
+
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
