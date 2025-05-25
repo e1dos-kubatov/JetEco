@@ -22,21 +22,24 @@
             </ul>
         </nav>
         <div class="header-actions">
-            <!-- Отображение профиля пользователя Google -->
-            <div th:if="${name}" class="user-profile">
-                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
-                <span th:text="${name}" style="margin-left: 8px;"></span>
-            </div>
-
-            <a href="#" class="icon-button"><i class="fas fa-search"></i></a>
-            <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
-            <!-- Кнопки входа и регистрации -->
+            <!-- Кнопки входа и регистрации, если пользователь не вошёл -->
             <div th:if="${name == null}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
             </div>
 
+            <!-- Фото профиля справа, если пользователь авторизован -->
+            <div th:if="${name != null}" class="user-profile" style="display: flex; align-items: center; gap: 12px;">
+                <a href="/profile" title="Профиль">
+                    <img th:src="${picture}" alt="Profile picture"
+                         style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
+                </a>
+            </div>
+
+            <a href="#" class="icon-button"><i class="fas fa-search"></i></a>
+            <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
         </div>
+
     </div>
 </header>
 

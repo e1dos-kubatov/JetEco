@@ -21,9 +21,9 @@ public class HomeController {
             String name = oauthUser.getAttribute("name");
             String picture = oauthUser.getAttribute("picture");
             String email = oauthUser.getAttribute("email");
-            model.addAttribute("name", name);
-            model.addAttribute("picture", picture);
-            model.addAttribute("email", email);
+            model.addAttribute("name", oauthUser.getAttribute("name"));
+            model.addAttribute("picture", oauthUser.getAttribute("picture"));
+            model.addAttribute("email", oauthUser.getAttribute("email"));
         }
         return "home";
     }
