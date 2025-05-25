@@ -51,7 +51,16 @@ public class HomeController {
     @GetMapping("/partners")
     public String showPartners(Model model) {
         model.addAttribute("partners", partnerService.getAllPartners());
-        return "partners"; // partners.html
+        return "partners";
     }
 
+    @GetMapping("/about")
+    public String aboutPage() {
+        return "about_us";
+    }
+
+    @GetMapping("/how-it-works")
+    public String howItWorksPage() {
+        return "how-it-works";
+    }
 }
