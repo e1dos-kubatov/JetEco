@@ -12,7 +12,7 @@
 <header class="main-header">
     <div class="container header-content">
         <div class="logo">
-            <img src="https://i.postimg.cc/CM8zvVFg/jeteco-logo.png" alt="JetEco Logo">
+            <img src="https://i.postimg.cc/CM8zvVFg/jeteco-logo.png" alt="JetEco Logo" />
         </div>
         <nav class="main-nav">
             <ul>
@@ -23,28 +23,36 @@
         </nav>
         <div class="header-actions">
             <form class="search-bar" action="/search" method="get">
-                <input type="text" name="query" placeholder="Поиск..." />
+                <input type="text" id="searchInput" placeholder="Поиск по названию продукта..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-            <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
-            <!-- Кнопки входа и регистрации -->
-            <div th:if="${name == null}">
+            <a href="#" class="icon-button" onclick="window.location.href='/basket'">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+
+            <!-- Кнопки входа и регистрации (если пользователь не авторизован) -->
+            <div th:if="${#strings.isEmpty(name)}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
-                <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
-
             </div>
-            <div th:if="${name}" class="user-profile">
-                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
+
+            <!-- Профиль пользователя (если авторизован) -->
+            <div th:if="${!#strings.isEmpty(name)}" class="user-profile" style="display: flex; align-items: center; gap: 8px;">
+                <img
+                        id="profile-avatar"
+                        th:src="${picture}"
+                        alt="Profile picture"
+                        style="width:32px; height:32px; border-radius:50%; cursor:pointer;"
+                        title="Перейти в профиль"
+                />
                 <span class="profile-name" th:text="${name}"></span>
-                <form th:action="@{/logout}" method="post">
+                <form th:action="@{/logout}" method="post" style="margin-left: 12px;">
                     <button type="submit" class="btn button-primary">Выйти</button>
                 </form>
             </div>
         </div>
     </div>
 </header>
-
 <main>
     <section class="hero-section">
         <div class="container hero-content">
@@ -193,6 +201,45 @@
 <script th:inline="javascript">
     const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
     console.log("Проверка роли: ", role);
+</script>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const avatar = document.getElementById("profile-avatar");
+        if (avatar) {
+            avatar.addEventListener("click", function () {
+                const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+
+                switch (role) {
+                    case 'ROLE_CLIENT':
+                        window.location.href = '/client-profile';
+                        break;
+                    case 'ROLE_PARTNER':
+                        window.location.href = '/partner-profile';
+                        break;
+                    case 'ROLE_ADMIN':
+                        window.location.href = '/admin';
+                        break;
+                    default:
+                        window.location.href = '/';
+                }
+            });
+        }
+    });
+</script>
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        const cards = document.querySelectorAll('#foodItemsContainer .food-item-card');
+
+        cards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            if (title.includes(filter)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
 </script>
 
 </body>
