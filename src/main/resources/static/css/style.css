@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #74ebd5, #acb6e5); /* beautiful gradient */
+    background: linear-gradient(135deg, #f8f8f8, #28a745); /* beautiful gradient */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,8 +48,8 @@ input:focus {
 
 button {
     padding: 14px;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
     background-color: #4caf50;
     color: white;
     border: none;
@@ -69,7 +69,6 @@ button:hover {
     display: inline-block;
     justify-content: center;
     margin-top: 1rem;
-    gap: 2rem;
 }
 
 a {

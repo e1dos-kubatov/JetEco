@@ -26,8 +26,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--light-grey);
-}
+background: #f8f8f8}
 
 .container {
     max-width: 1200px;
@@ -105,7 +104,7 @@ p {
     background: none;
     border: none;
     font-size: 1.2em;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     cursor: pointer;
     margin-left: 20px;
     margin-right: 23px;
@@ -116,7 +115,7 @@ p {
     justify-content: center;
     width: 48px;
     height: 48px;
-    background-color: #333;
+    background-color: var(--primary-color);
     color: #fff;
     border-radius: 8px;
     text-decoration: none;
@@ -125,7 +124,7 @@ p {
 }
 
 .icon-button:hover {
-    background-color: #555;
+    background-color: #1e7e34;
 }
 
 /* Header */
@@ -199,7 +198,7 @@ p {
     display: flex;
     align-items: center;
     background-color: white;
-    border: 1px solid #ccc;
+    border: 1px solid #f8f8f8;
     border-radius: 20px;
     padding: 5px 10px;
     height: 36px;
