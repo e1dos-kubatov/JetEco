@@ -26,20 +26,16 @@
                 <input type="text" name="query" placeholder="Поиск..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-            <a href="/basket" class="icon-button"><i class="fas fa-shopping-cart"></i></a>
-
-            <!-- Гость (не вошёл) -->
+            <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
+            <!-- Кнопки входа и регистрации -->
             <div th:if="${name == null}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
-            </div>
+                <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
 
-            <!-- Авторизованный пользователь -->
-            <div th:if="${name}" class="user-profile" style="display: flex; align-items: center; gap: 10px;">
-                <a href="/profile" title="Профиль">
-                    <img th:src="${picture}" alt="Profile picture"
-                         style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
-                </a>
+            </div>
+            <div th:if="${name}" class="user-profile">
+                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
                 <span class="profile-name" th:text="${name}"></span>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="btn button-primary">Выйти</button>
@@ -48,7 +44,6 @@
         </div>
     </div>
 </header>
-
 
 <main>
     <section class="hero-section">
@@ -130,7 +125,7 @@
                 </div>
             </div>
             <div class="all-products-button-wrapper">
-                <a href="/partners" class="btn button-primary">Все продукты</a>
+                <a href="#how-to-order-section" class="btn button-primary">Все продукты</a>
             </div>
         </div>
     </section>
