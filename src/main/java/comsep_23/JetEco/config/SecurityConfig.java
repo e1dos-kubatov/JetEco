@@ -72,20 +72,20 @@ public class SecurityConfig {
                         .requestMatchers("/admin-dashboard").hasRole("ADMIN")
 
 
-                        .anyRequest().authenticated() // Changed from .permitAll()
+                        .anyRequest().permitAll() // Changed from .permitAll()
                 )
                 .oauth2Login(oauth -> oauth
-                                .loginPage("/login") // Custom login page for OAuth2 flow
-                                .userInfoEndpoint(userInfo -> userInfo
-                                        .userService(customOAuth2ClientService) // Corrected field name
-                                )
-                                .defaultSuccessUrl("/", true) // Redirect after successful OAuth2 login
+                        .loginPage("/login") // Custom login page for OAuth2 flow
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2ClientService) // Corrected field name
+                        )
+                        .defaultSuccessUrl("/", true) // Redirect after successful OAuth2 login
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Standard for web apps with sessions
                 )
                 .exceptionHandling(exception -> exception
-                                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

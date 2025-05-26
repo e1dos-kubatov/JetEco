@@ -31,12 +31,11 @@
             <div th:if="${name == null}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
+                <button class="btn register-btn" onclick="window.location.href='/profile'">Профиль</button>
+
             </div>
             <div th:if="${name}" class="user-profile">
-                <a href="/profile" title="Профиль">
-                    <img th:src="${picture}" alt="Profile picture"
-                         style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
-                </a>
+                <img th:src="${picture}" alt="Profile picture" style="width:32px; height:32px; border-radius:50%;">
                 <span class="profile-name" th:text="${name}"></span>
             </div>
         </div>
@@ -123,7 +122,7 @@
                 </div>
             </div>
             <div class="all-products-button-wrapper">
-                <a href="/partners" class="btn button-primary">Все продукты</a>
+                <a href="#how-to-order-section" class="btn button-primary">Все продукты</a>
             </div>
         </div>
     </section>

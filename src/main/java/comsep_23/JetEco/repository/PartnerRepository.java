@@ -11,4 +11,6 @@ public interface PartnerRepository extends JpaRepository<Partner, Long> {
     Optional<Partner> findByPhone(String phone);
 
     long countByActiveTrue();
+
+    Optional<Partner> findByName(String username);
 }
