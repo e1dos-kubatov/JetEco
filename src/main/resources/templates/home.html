@@ -12,13 +12,13 @@
 <header class="main-header">
     <div class="container header-content">
         <div class="logo">
-            <img src="https://i.postimg.cc/CM8zvVFg/jeteco-logo.png" alt="JetEco Logo" >
+            <img src="https://i.postimg.cc/CM8zvVFg/jeteco-logo.png" alt="JetEco Logo">
         </div>
         <nav class="main-nav">
             <ul>
                 <li><a href="/about" class="active">О нас</a></li>
                 <li><a href="/partners">Партнёры</a></li>
-                <li><a href="how-it-works">Как это работает</a></li>
+                <li><a href="/how-it-works">Как это работает</a></li>
             </ul>
         </nav>
         <div class="header-actions">
@@ -26,22 +26,29 @@
                 <input type="text" name="query" placeholder="Поиск..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-            <a href="#" class="icon-button" onclick="window.location.href='/basket'"><i class="fas fa-shopping-cart"></i></a>
-            <!-- Кнопки входа и регистрации -->
+            <a href="/basket" class="icon-button"><i class="fas fa-shopping-cart"></i></a>
+
+            <!-- Гость (не вошёл) -->
             <div th:if="${name == null}">
                 <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
                 <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
             </div>
-            <div th:if="${name}" class="user-profile">
+
+            <!-- Авторизованный пользователь -->
+            <div th:if="${name}" class="user-profile" style="display: flex; align-items: center; gap: 10px;">
                 <a href="/profile" title="Профиль">
                     <img th:src="${picture}" alt="Profile picture"
                          style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
                 </a>
                 <span class="profile-name" th:text="${name}"></span>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn button-primary">Выйти</button>
+                </form>
             </div>
         </div>
     </div>
 </header>
+
 
 <main>
     <section class="hero-section">
