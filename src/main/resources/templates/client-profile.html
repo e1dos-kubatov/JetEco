@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Профиль</title>
+  <title>Profile</title>
   <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
 <div class="container">
-  <h1>Профиль пользователя</h1>
+  <h1>User Profile</h1>
 
   <div class="profile-card">
-    <p><strong>Имя:</strong> <span th:text="${name}"></span></p>
-    <p><strong>Телефон:</strong> <span th:text="${phone}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${name}"></span></p>
+    <p><strong>Phone:</strong> <span th:text="${phone}"></span></p>
     <p><strong>Email:</strong> <span th:text="${email}"></span></p>
-    <p><strong>Дата регистрации:</strong> <span th:text="${registeredAt}"></span></p>
+    <p><strong>Registration Date:</strong> <span th:text="${registeredAt}"></span></p>
   </div>
 
   <div th:if="${role == 'PARTNER'}" class="profile-card">
-    <p><strong>Название компании:</strong> <span th:text="${user.name}"></span></p>
-    <p><strong>Телефон:</strong> <span th:text="${user.phone}"></span></p>
-    <p><strong>Адрес:</strong> <span th:text="${user.address}"></span></p>
-    <p><strong>Дата регистрации:</strong> <span th:text="${user.registeredAt}"></span></p>
+    <p><strong>Company Name:</strong> <span th:text="${user.name}"></span></p>
+    <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
+    <p><strong>Address:</strong> <span th:text="${user.address}"></span></p>
+    <p><strong>Registration Date:</strong> <span th:text="${user.registeredAt}"></span></p>
   </div>
 
-  <a href="/" class="back-button">Назад</a>
+  <a href="/" class="back-button">Back</a>
 </div>
 <script th:inline="javascript">
   const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
-  console.log("Проверка роли: ", role);
+  console.log("Role check: ", role);
 </script>
 </body>
 </html>

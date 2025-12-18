@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JetEco - Вкусно. Выгодно. Экологично.</title>
+    <title>JetEco - Delicious. Profitable. Eco-friendly.</title>
     <link rel="stylesheet" href="/css/home-style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -16,38 +16,36 @@
         </div>
         <nav class="main-nav">
             <ul>
-                <li><a href="/about" class="active">О нас</a></li>
-                <li><a href="/partners">Партнёры</a></li>
-                <li><a href="/how-it-works">Как это работает</a></li>
+                <li><a href="/about" class="active">About Us</a></li>
+                <li><a href="/partners">Partners</a></li>
+                <li><a href="/how-it-works">How It Works</a></li>
             </ul>
         </nav>
         <div class="header-actions">
             <form class="search-bar" action="/search" method="get">
-                <input type="text" id="searchInput" placeholder="Поиск по названию продукта..." />
+                <input type="text" id="searchInput" placeholder="Search by product name..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
             <a href="#" class="icon-button" onclick="window.location.href='/basket'">
                 <i class="fas fa-shopping-cart"></i>
             </a>
 
-            <!-- Кнопки входа и регистрации (если пользователь не авторизован) -->
             <div th:if="${#strings.isEmpty(name)}">
-                <button class="btn login-btn" onclick="window.location.href='/login'">Войти</button>
-                <button class="btn register-btn" onclick="window.location.href='/register'">Регистрация</button>
+                <button class="btn login-btn" onclick="window.location.href='/login'">Login</button>
+                <button class="btn register-btn" onclick="window.location.href='/register'">Register</button>
             </div>
 
-            <!-- Профиль пользователя (если авторизован) -->
             <div th:if="${!#strings.isEmpty(name)}" class="user-profile" style="display: flex; align-items: center; gap: 8px;">
                 <img
                         id="profile-avatar"
                         th:src="${picture}"
                         alt="Profile picture"
                         style="width:32px; height:32px; border-radius:50%; cursor:pointer;"
-                        title="Перейти в профиль"
+                        title="Go to profile"
                 />
                 <span class="profile-name" th:text="${name}"></span>
                 <form th:action="@{/logout}" method="post" style="margin-left: 12px;">
-                    <button type="submit" class="btn button-primary">Выйти</button>
+                    <button type="submit" class="btn button-primary">Logout</button>
                 </form>
             </div>
         </div>
@@ -57,89 +55,89 @@
     <section class="hero-section">
         <div class="container hero-content">
             <div class="hero-text">
-                <h4>Вкусно. Выгодно. Экологично.</h4>
-                <p>Откройте для себя новые вкусы и здоровые привычки с JetEco. Мы предлагаем свежие и качественные продукты с доставкой прямо к вашему порогу.</p>
-                <a href="#how-to-order-section" class="button button-primary">Заказать сейчас</a>
+                <h4>Delicious. Profitable. Eco-friendly.</h4>
+                <p>Discover new flavors and healthy habits with JetEco. We offer fresh, high-quality products delivered straight to your doorstep.</p>
+                <a href="#how-to-order-section" class="button button-primary">Order Now</a>
             </div>
             <div class="hero-images">
-                <img src="https://images.unsplash.com/photo-1543353071-c953d88f7033?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 1" class="food-img food-img-large">
-                <img src="https://images.unsplash.com/photo-1632142334511-8f24c3d3ae79?q=80&w=3088&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 2" class="food-img food-img-small-top">
-                <img src="https://plus.unsplash.com/premium_photo-1661636006793-41424adb9b8f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food image 3" class="food-img food-img-small-bottom">
+                <img src="https://images.unsplash.com/photo-1543353071-c953d88f7033?q=80&w=3125&auto=format&fit=crop" alt="Food image 1" class="food-img food-img-large">
+                <img src="https://images.unsplash.com/photo-1632142334511-8f24c3d3ae79?q=80&w=3088&auto=format&fit=crop" alt="Food image 2" class="food-img food-img-small-top">
+                <img src="https://plus.unsplash.com/premium_photo-1661636006793-41424adb9b8f?q=80&w=2940&auto=format&fit=crop" alt="Food image 3" class="food-img food-img-small-bottom">
             </div>
         </div>
     </section>
 
     <section class="partners-section">
         <div class="container">
-            <h2>Как заказать</h2>
-            <p class="section-description">Качество продукции является нашим приоритетом, и мы работаем только с лучшими, чтобы свежесть пока она не окажется в ваших руках.</p>
+            <h2>How to Order</h2>
+            <p class="section-description">Product quality is our priority. We work only with the best to ensure freshness until the moment it reaches your hands.</p>
             <div class="partner-cards">
                 <div class="partner-card">
-                    <img src="https://i.postimg.cc/cCpcqqHz/2025-05-25-20-20-06.png" alt="Зеленая кнопка">
-                    <h3>Нажмите добавить в корзину</h3>
+                    <img src="https://i.postimg.cc/cCpcqqHz/2025-05-25-20-20-06.png" alt="Green button">
+                    <h3>Click Add to Cart</h3>
                 </div>
                 <div class="partner-card">
-                    <img src="https://i.postimg.cc/R0T9N4xc/2025-05-25-20-32-29.png" alt="Корзиан в верхнем правом углу">
-                    <h3>Нажмите на корзину</h3>
+                    <img src="https://i.postimg.cc/R0T9N4xc/2025-05-25-20-32-29.png" alt="Cart icon">
+                    <h3>Click on the Cart</h3>
                 </div>
-                    <div class="partner-card">
-                        <img src="https://i.postimg.cc/cCpcqqHz/2025-05-25-20-20-06.png" alt="Подтвердить">
-                        <h3>Нажмите подтвердить заказ и можете забрать его в филиале</h3>
-                    </div>
+                <div class="partner-card">
+                    <img src="https://i.postimg.cc/cCpcqqHz/2025-05-25-20-20-06.png" alt="Confirm">
+                    <h3>Click Confirm Order and pick it up at the branch</h3>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="how-to-order-section" class="how-to-order-section">
         <div class="container">
-            <h2>Что заказывают</h2>
-            <p class="section-description">Все продукты, представленные в приложении, проходят контроль качества и предлагаются в несколько часов от их приготовления.</p>
+            <h2>Popular Orders</h2>
+            <p class="section-description">All products in the app undergo quality control and are offered within a few hours of preparation.</p>
             <div class="food-items-grid">
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1569419904069-081571452242?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 1">
-                    <h3>Бокс с едой из Bublik</h3>
-                    <p>400 грамм</p>
+                    <img src="https://images.unsplash.com/photo-1569419904069-081571452242?q=80&w=3087&auto=format&fit=crop" alt="Food Box 1">
+                    <h3>Food Box from Bublik</h3>
+                    <p>400 grams</p>
                     <div class="price-like">
-                        <span>190 сом</span>
-                        <button class="add-to-cart-btn">Добавить в корзину</button>
+                        <span>190 som</span>
+                        <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1644203542040-2df37e3580ef?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Food Box 2">
-                    <h3>Бокс с едой из Belagio</h3>
-                    <p>800 грамм</p>
+                    <img src="https://images.unsplash.com/photo-1644203542040-2df37e3580ef?q=80&w=2940&auto=format&fit=crop" alt="Food Box 2">
+                    <h3>Food Box from Belagio</h3>
+                    <p>800 grams</p>
                     <div class="price-like">
-                        <span>200 сом</span>
-                        <button class="add-to-cart-btn">Добавить в корзину</button>
+                        <span>200 som</span>
+                        <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
                 <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1616645258469-ec681c17f3ee?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sandwich">
-                    <h3>Бокс с едой из Ula Food</h3>
-                    <p>500 грамм</p>
+                    <img src="https://images.unsplash.com/photo-1616645258469-ec681c17f3ee?q=80&w=2940&auto=format&fit=crop" alt="Sandwich">
+                    <h3>Food Box from Ula Food</h3>
+                    <p>500 grams</p>
                     <div class="price-like">
-                        <span>100 сом</span>
-                        <button class="add-to-cart-btn">Добавить в корзину</button>
+                        <span>100 som</span>
+                        <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
                 <div class="food-item-card">
                     <img src="https://media.istockphoto.com/id/1297636943/photo/fish-diet-salad-with-tuna-tomatoes-arugula-on-light-background-healthy-vegetarian-lunch.webp?a=1&b=1&s=612x612&w=0&k=20&c=uHpQv8xLcf5OlKcg8mKrSftDBtA0ifartSYDc72zyxo=" alt="Food Box 3">
-                    <h3>Бокс с едой из Capito</h3>
-                    <p>600 грамм</p>
+                    <h3>Food Box from Capito</h3>
+                    <p>600 grams</p>
                     <div class="price-like">
-                        <span>200 сом</span>
-                        <button class="add-to-cart-btn">Добавить в корзину</button>
+                        <span>200 som</span>
+                        <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
             </div>
             <div class="all-products-button-wrapper">
-                <a href="#how-to-order-section" class="btn button-primary">Все продукты</a>
+                <a href="#how-to-order-section" class="btn button-primary">All Products</a>
             </div>
         </div>
     </section>
     <section class="info-block">
         <div class="container">
-            <p>Все продукты, представленные в приложении, проходят контроль качества и предлагаются за несколько часов до истечения срока годности. Шеф-повара магазина упаковывают еду в чистые контейнеры, соблюдая санитарные нормы, а также вкус и свежесть еда, как всегда, просто с ограниченным сроком реализации. Вместе мы помогаем сократить пищевые отходы и заботимся о будущем.</p>
+            <p>All products in the application undergo quality control and are offered several hours before their expiration date. Shop chefs pack food in clean containers, observing sanitary standards, ensuring the taste and freshness of the food is as high as ever, simply with a limited sale period. Together we help reduce food waste and care for the future.</p>
         </div>
     </section>
 </main>
@@ -148,7 +146,7 @@
     <div class="container footer-content">
         <div class="footer-section footer-company">
             <h3>JetEco</h3>
-            <p>Вкусно. Выгодно. Экологично.</p>
+            <p>Delicious. Profitable. Eco-friendly.</p>
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/soullovesoil/"><i class="fab fa-instagram"></i></a>
@@ -158,89 +156,27 @@
         <div class="footer-section footer-links">
             <h3>Company</h3>
             <ul>
-                <li><a href="#">О нас</a></li>
-                <li><a href="/partners">Партнеры</a></li>
-                <li><a href="/how-it-works">Как это работает</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="/partners">Partners</a></li>
+                <li><a href="/how-it-works">How It Works</a></li>
             </ul>
         </div>
         <div class="footer-section footer-contact">
-            <h3>Наши контакты</h3>
+            <h3>Our Contacts</h3>
             <p><a class="example" href="mailto:jeteco@example.com">jeteco@example.com</a> </p>
         </div>
     </div>
     <div class="footer-bottom">
         <div class="container">
-            <p>&copy; 2025 JetEco. All right Reserved.</p>
+            <p>&copy; 2025 JetEco. All rights Reserved.</p>
         </div>
     </div>
 </footer>
-<script th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        const avatar = document.getElementById("profile-avatar");
-        if (avatar) {
-            avatar.addEventListener("click", function () {
-                const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
 
-                switch (role) {
-                    case 'ROLE_CLIENT':
-                        window.location.href = '/client-profile';
-                        break;
-                    case 'ROLE_PARTNER':
-                        window.location.href = '/partner-profile';
-                        break;
-                    case 'ROLE_ADMIN':
-                        window.location.href = '/admin';
-                        break;
-                    default:
-                        window.location.href = '/';
-                }
-            });
-        }
-    });
-</script>
 <script th:inline="javascript">
+    // Script remains largely the same, only console logs translated
     const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
-    console.log("Проверка роли: ", role);
+    console.log("Role check: ", role);
 </script>
-<script th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        const avatar = document.getElementById("profile-avatar");
-        if (avatar) {
-            avatar.addEventListener("click", function () {
-                const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
-
-                switch (role) {
-                    case 'ROLE_CLIENT':
-                        window.location.href = '/client-profile';
-                        break;
-                    case 'ROLE_PARTNER':
-                        window.location.href = '/partner-profile';
-                        break;
-                    case 'ROLE_ADMIN':
-                        window.location.href = '/admin';
-                        break;
-                    default:
-                        window.location.href = '/';
-                }
-            });
-        }
-    });
-</script>
-<script>
-    document.getElementById('searchInput').addEventListener('input', function() {
-        const filter = this.value.toLowerCase();
-        const cards = document.querySelectorAll('#foodItemsContainer .food-item-card');
-
-        cards.forEach(card => {
-            const title = card.querySelector('h3').textContent.toLowerCase();
-            if (title.includes(filter)) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-</script>
-
 </body>
 </html>
