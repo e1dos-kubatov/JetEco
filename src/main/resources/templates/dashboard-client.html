@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Update</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+            text-transform: capitalize;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+            padding: 15px;
+            border-bottom: 2px solid #eee;
+            text-transform: capitalize;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* Status Badge */
+        .status-true {
+            color: #28a745;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        .status-true::before {
+            content: '●';
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .edit-btn {
+            background-color: transparent;
+            color: #3a7d3a;
+            border: 1px solid #3a7d3a;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .edit-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="#" class="back-link">← Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>Client</h1>
+            <span class="subtitle">Update</span>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Phone</th>
+                        <th>Password</th>
+                        <th>Name</th>
+                        <th>Active</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>01234</td>
+                        <td>pass</td>
+                        <td>John Doe</td>
+                        <td><span class="status-true">true</span></td>
+                        <td style="text-align: right;"><button class="edit-btn">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>02345</td>
+                        <td>word</td>
+                        <td>Anna Marrie</td>
+                        <td><span class="status-true">true</span></td>
+                        <td style="text-align: right;"><button class="edit-btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

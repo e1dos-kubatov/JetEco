@@ -1,17 +1,27 @@
 package comsep_23.JetEco.controller;
 
-import ch.qos.logback.core.model.Model;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.ui.Model;
 import comsep_23.JetEco.config.Role;
+import comsep_23.JetEco.entity.Client;
 import comsep_23.JetEco.entity.Partner;
 import comsep_23.JetEco.repository.PartnerRepository;
 import comsep_23.JetEco.service.PartnerService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
-@RestController
+@Controller
 @RequestMapping("/api/partners")
 public class PartnerController {
 
@@ -54,6 +64,20 @@ public class PartnerController {
     public ResponseEntity<Void> deletePartner(@PathVariable Long id) {
         partnerService.deletePartner(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/bublik")
+    public String getPartnerCatalog(@AuthenticationPrincipal Client client, Model model) {
+        if (client != null) {
+            model.addAttribute("name", client.getName());
+            model.addAttribute("picture", client.getPictureUrl());
+            model.addAttribute("email", client.getEmail());
+            model.addAttribute("role", client.getRole().name());
+        } else {
+            model.addAttribute("role", "ROLE_ANONYMOUS");
+        }
+
+        return "partner_id1";
     }
 
 }

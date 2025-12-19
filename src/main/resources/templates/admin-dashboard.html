@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .management-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px; /* Space before the statistics button */
+        }
+
+        .object-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .object-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .object-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #444;
+            text-transform: capitalize;
+        }
+
+        .update-btn {
+            background-color: #3a7d3a;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .update-btn:hover {
+            background-color: #3a7d3a;
+        }
+
+        /* New Statistics Button Styles */
+        .stats-container {
+            border-top: 1px solid #ddd;
+            padding-top: 25px;
+            text-align: center;
+        }
+
+        .view-stats-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .view-stats-btn:hover {
+            background-color: #5a6268;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Select object to manage</h1>
+        
+        <div class="management-list">
+            <div class="object-card">
+                <span class="object-name">Client</span>
+                <button class="update-btn">Update</button>
+            </div>
+
+            <div class="object-card">
+                <span class="object-name">Partner</span>
+                <button class="update-btn">Update</button>
+            </div>
+
+            <div class="object-card">
+                <span class="object-name">Offer</span>
+                <button class="update-btn">Update</button>
+            </div>
+
+            <div class="object-card">
+                <span class="object-name">Order Status</span>
+                <button class="update-btn">Update</button>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <button class="view-stats-btn">
+                <i class="icon"></i> View System Statistics
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>
