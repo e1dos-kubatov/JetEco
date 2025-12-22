@@ -12,11 +12,21 @@
   <thead>
   <tr>
     <th>Product</th>
-    <th>Color</th>
     <th>Quantity</th>
     <th>Price</th>
     <th>Subtotal</th>
-    <th>Remove</th>
+  </tr>
+  <tr>
+    <th>Food Box from Bublik</th>
+    <th>1</th>
+    <th>190</th>
+    <th>190</th>
+  </tr>
+  <tr>
+    <th>Food Box from Ula Food</th>
+    <th>2</th>
+    <th>100</th>
+    <th>200</th>
   </tr>
   </thead>
   <tbody>
@@ -43,10 +53,11 @@
   </tbody>
 </table>
 
-<h2>Total: <span th:text="${totalPrice}">0.00</span></h2>
+<h2>Total: 290 <span th:text="${totalPrice}">0.00</span></h2>
 
-<form th:action="@{/order/checkout}" method="post">
+<form action="/checkout" method="get">
   <button type="submit">Checkout</button>
 </form>
+
 </body>
 </html>

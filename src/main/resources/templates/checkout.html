@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout | JetEco</title>
+    <link rel="stylesheet" href="/css/checkout.css">
+</head>
+<body>
+
+<div class="checkout-container">
+
+    <h1>Checkout</h1>
+
+    <!-- 🧾 Order summary -->
+    <div class="order-summary">
+        <h2>Your Order</h2>
+
+        <div th:each="item : ${cartItems}" class="order-item">
+            <span th:text="${item.name}">Food Box</span>
+            <span th:text="${item.price} + ' som'">100 som</span>
+        </div>
+
+        <hr>
+
+        <div class="total">
+            <strong>Total:</strong>
+            <strong th:text="${total} + ' som'">300 som</strong>
+        </div>
+    </div>
+
+    <!-- 💳 Payment method -->
+    <form action="/checkout/confirm" method="post" class="payment-form">
+
+        <h2>Payment Method</h2>
+
+        <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="QR" checked>
+            Pay online (QR-code)
+        </label>
+
+        <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="COURIER">
+            Pay to courier
+        </label>
+
+        <!-- QR block -->
+        <div id="qr-block">
+            <p>Scan QR code to pay:</p>
+            <img src="data:image/png;base64,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" alt="QR Code" class="qr-img">
+        </div>
+
+        <button type="submit" class="checkout-btn">
+            Confirm Order
+        </button>
+    </form>
+
+</div>
+
+<script>
+    const radios = document.querySelectorAll('input[name="paymentMethod"]');
+    const qrBlock = document.getElementById('qr-block');
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            qrBlock.style.display = radio.value === 'QR' ? 'block' : 'none';
+        });
+    });
+</script>
+
+</body>
+</html>

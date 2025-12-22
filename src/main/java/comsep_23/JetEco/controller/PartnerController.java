@@ -57,7 +57,7 @@ public class PartnerController {
 
     @GetMapping("/partners")
     public String showPartners(Model model) {
-        model.addText("partners");
+        model.addAttribute("partners");
         return "partners";
     }
     @DeleteMapping("/{id}")

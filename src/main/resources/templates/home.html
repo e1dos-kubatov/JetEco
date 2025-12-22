@@ -26,7 +26,7 @@
                 <input type="text" id="searchInput" placeholder="Search by product name..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-            <a href="#" class="icon-button" onclick="window.location.href='/basket'">
+            <a href="#" class="icon-button" id="cart-icon" onclick="window.location.href='/basket'">
                 <i class="fas fa-shopping-cart"></i>
             </a>
 
@@ -174,9 +174,44 @@
 </footer>
 
 <script th:inline="javascript">
-    // Script remains largely the same, only console logs translated
-    const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
-    console.log("Role check: ", role);
+        document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+        button.addEventListener("click", (e) => {
+            const card = e.target.closest(".food-item-card");
+            const img = card.querySelector("img");
+            const cart = document.getElementById("cart-icon");
+
+            if (!img || !cart) return;
+
+            const imgRect = img.getBoundingClientRect();
+            const cartRect = cart.getBoundingClientRect();
+
+            const imgClone = img.cloneNode(true);
+            imgClone.classList.add("flying-img");
+
+            imgClone.style.top = imgRect.top + "px";
+            imgClone.style.left = imgRect.left + "px";
+            imgClone.style.width = imgRect.width + "px";
+
+            document.body.appendChild(imgClone);
+
+            requestAnimationFrame(() => {
+                imgClone.style.top = cartRect.top + "px";
+                imgClone.style.left = cartRect.left + "px";
+                imgClone.style.width = "30px";
+                imgClone.style.opacity = "0.5";
+            });
+
+            imgClone.addEventListener("transitionend", () => {
+                imgClone.remove();
+                cart.classList.add("bounce");
+                setTimeout(() => cart.classList.remove("bounce"), 300);
+            });
+        });
+    });
+
+// Script remains largely the same, only console logs translated
+const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
+console.log("Role check: ", role);
 </script>
 </body>
 </html>

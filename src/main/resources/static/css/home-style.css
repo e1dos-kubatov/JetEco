@@ -127,6 +127,24 @@ p {
     background-color: #1e7e34;
 }
 
+.flying-img {
+    position: fixed;
+    width: 80px;
+    z-index: 1000;
+    transition: all 0.8s ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes cart-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+#cart-icon.bounce {
+    animation: cart-bounce 0.3s;
+}
+
 /* Header */
 .main-header {
     position: fixed;
