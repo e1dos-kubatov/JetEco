@@ -8,56 +8,80 @@
 <body>
 <h1>Shopping Cart</h1>
 
-<table>
+<table id="cart-table">
   <thead>
   <tr>
     <th>Product</th>
     <th>Quantity</th>
     <th>Price</th>
     <th>Subtotal</th>
-  </tr>
-  <tr>
-    <th>Food Box from Bublik</th>
-    <th>1</th>
-    <th>190</th>
-    <th>190</th>
-  </tr>
-  <tr>
-    <th>Food Box from Ula Food</th>
-    <th>2</th>
-    <th>100</th>
-    <th>200</th>
+    <th>Action</th>
   </tr>
   </thead>
-  <tbody>
-  <tr th:each="item : ${cartItems}">
-    <td th:text="${item.productName}">Product Name</td>
-    <td th:text="${item.color}">Color</td>
-    <td>
-      <form th:action="@{/cart/update}" method="post">
-        <input type="hidden" th:name="productId" th:value="${item.id}"/>
-        <button type="submit" name="action" value="decrease">-</button>
-        <span th:text="${item.quantity}">1</span>
-        <button type="submit" name="action" value="increase">+</button>
-      </form>
-    </td>
-    <td th:text="${item.price}">0.00</td>
-    <td th:text="${item.price * item.quantity}">0.00</td>
-    <td>
-      <form th:action="@{/cart/remove}" method="post">
-        <input type="hidden" th:name="productId" th:value="${item.id}"/>
-        <button type="submit">Remove</button>
-      </form>
-    </td>
-  </tr>
-  </tbody>
+  <tbody></tbody>
 </table>
+
+<h2>Total: <span id="total-price">0</span> som</h2>
+
+<button onclick="goToCheckout()">Checkout</button>
+
 
 <h2>Total: 290 <span th:text="${totalPrice}">0.00</span></h2>
 
 <form action="/checkout" method="get">
   <button type="submit">Checkout</button>
 </form>
+<script>
+  const CART_KEY = "jeteco_cart";
 
+  function getCart() {
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const tbody = document.querySelector("#cart-table tbody");
+    const totalEl = document.getElementById("total-price");
+
+    tbody.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+
+      tbody.innerHTML += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.price} som</td>
+                <td>${subtotal} som</td>
+                <td>
+                    <button onclick="removeItem(${index})">Remove</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    totalEl.innerText = total;
+  }
+
+  function removeItem(index) {
+    let cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+  }
+
+  function goToCheckout() {
+    window.location.href = "/checkout";
+  }
+
+  renderCart();
+</script>
 </body>
 </html>

@@ -213,5 +213,40 @@
 const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
 console.log("Role check: ", role);
 </script>
+<script>
+    const CART_KEY = "jeteco_cart";
+
+    function getCart() {
+        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    }
+
+    function saveCart(cart) {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            const card = button.closest(".food-item-card");
+            const name = card.querySelector("h3").innerText;
+            const price = parseInt(card.querySelector(".price-like span").innerText);
+
+            let cart = getCart();
+
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    name,
+                    price,
+                    quantity: 1
+                });
+            }
+
+            saveCart(cart);
+            alert(name + " added to cart 🛒");
+        });
+    });
+</script>
 </body>
 </html>

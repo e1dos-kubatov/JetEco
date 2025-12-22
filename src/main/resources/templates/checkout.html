@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
         (function () {
-            emailjs.init('I0av9L96uc4HI8ds7');
+            emailjs.init("I0av9L96uc4HI8ds7");
         })();
     </script>
 
@@ -22,18 +22,16 @@
     <div class="order-summary">
         <h2>Your Order</h2>
 
-        <div th:each="item : ${cartItems}" class="order-item">
-            <span th:text="${item.name}">Food Box</span>
-            <span th:text="${item.price} + ' som'">100 som</span>
-        </div>
+        <div id="order-items"></div> <!-- сюда JS вставит товары -->
 
         <hr>
 
         <div class="total">
             <strong>Total:</strong>
-            <strong th:text="${total} + ' som'">300 som</strong>
+            <strong id="order-total">0 som</strong>
         </div>
     </div>
+
 
     <!-- 💳 Payment method -->
     <form class="payment-form" onsubmit="sendOrderEmail(event)">
@@ -75,16 +73,110 @@
     });
 </script>
 <script>
+    const CART_KEY = "jeteco_cart";
+
+    function getCart() {
+        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    }
+
+    function clearCart() {
+        localStorage.removeItem(CART_KEY);
+    }
+
     function sendOrderEmail(event) {
         event.preventDefault();
 
-        emailjs.send("service_gird0do", "template_epp19ci")
+        const cart = getCart();
+        if (cart.length === 0) {
+            alert("Cart is empty");
+            return;
+        }
+
+        let orderText = "";
+        let total = 0;
+
+        cart.forEach(item => {
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+            orderText += `• ${item.name} x${item.quantity} — ${subtotal} som\n`;
+        });
+
+        emailjs.send(
+            "service_gird0do",
+            "template_zf0vo85",
+            {
+                order_details: orderText,
+                total_price: total
+            }
+        )
             .then(() => {
-                alert("Order confirmed! Email sent ✅");
+                alert("Order confirmed ✅ Email sent");
+                clearCart();
                 window.location.href = "/";
             })
             .catch(error => {
-                alert("Email error");
+                alert("Email error ❌");
+                console.log(error);
+            });
+    }
+</script>
+<script>
+    // Отображаем корзину в Order Summary
+    function renderOrderSummary() {
+        const cart = JSON.parse(localStorage.getItem("jeteco_cart")) || [];
+        const orderItemsDiv = document.getElementById("order-items");
+        const totalEl = document.getElementById("order-total");
+
+        let orderText = "";
+        let total = 0;
+
+        orderItemsDiv.innerHTML = ""; // очищаем
+
+        cart.forEach(item => {
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+
+            const div = document.createElement("div");
+            div.classList.add("order-item");
+            div.textContent = `${item.name} x${item.quantity} — ${subtotal} som`;
+            orderItemsDiv.appendChild(div);
+
+            orderText += `• ${item.name} x${item.quantity} — ${subtotal} som\n`;
+        });
+
+        totalEl.textContent = total + " som";
+
+        return { orderText, total };
+    }
+
+    // вызываем при загрузке страницы
+    renderOrderSummary();
+
+    function sendOrderEmail(event) {
+        event.preventDefault();
+
+        const { orderText, total } = renderOrderSummary();
+
+        if (!orderText) {
+            alert("Cart is empty");
+            return;
+        }
+
+        emailjs.send(
+            "service_gird0do",
+            "template_zf0vo85",
+            {
+                order_details: orderText,
+                total_price: total
+            }
+        )
+            .then(() => {
+                alert("Order confirmed ✅ Email sent");
+                localStorage.removeItem("jeteco_cart");
+                window.location.href = "/";
+            })
+            .catch(error => {
+                alert("Email error ❌");
                 console.log(error);
             });
     }
