@@ -47,6 +47,9 @@
                 <form th:action="@{/logout}" method="post" style="margin-left: 12px;">
                     <button type="submit" class="btn button-primary">Logout</button>
                 </form>
+                <div>
+                    <button class="partner-button" onclick="window.location.href='/partner-page'">P</button>
+                </div>
             </div>
         </div>
     </div>
@@ -120,15 +123,8 @@
                         <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
-                <div class="food-item-card">
-                    <img src="https://media.istockphoto.com/id/1297636943/photo/fish-diet-salad-with-tuna-tomatoes-arugula-on-light-background-healthy-vegetarian-lunch.webp?a=1&b=1&s=612x612&w=0&k=20&c=uHpQv8xLcf5OlKcg8mKrSftDBtA0ifartSYDc72zyxo=" alt="Food Box 3">
-                    <h3>Food Box from Capito</h3>
-                    <p>600 grams</p>
-                    <div class="price-like">
-                        <span>200 som</span>
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                </div>
+                <div class="food-items-grid" id="popularProducts"></div>
+
             </div>
             <div class="all-products-button-wrapper">
                 <a href="#how-to-order-section" class="btn button-primary">All Products</a>
@@ -213,5 +209,95 @@
 const role = /*[[${role}]]*/ 'ROLE_ANONYMOUS';
 console.log("Role check: ", role);
 </script>
+<script>
+    const container = document.getElementById("popularProducts");
+    const products = JSON.parse(localStorage.getItem("partnerProducts")) || [];
+
+    products.forEach((product, index) => {
+        const card = document.createElement("div");
+        card.className = "food-item-card";
+
+        card.innerHTML = `
+      <img src="${product.image}">
+      <h3>${product.name}</h3>
+      <p>${product.weight || "-"} grams</p>
+      <div class="price-like">
+        <span>${product.price} som</span>
+        <button class="add-to-cart-btn" data-index="${index}">
+          Add to Cart
+        </button>
+      </div>
+    `;
+
+        container.appendChild(card);
+    });
+
+    // навешиваем обработчики
+    document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const index = e.target.dataset.index;
+            const product = products[index];
+
+            addToCart(product);
+            animateToCart(e.target);
+        });
+    });
+
+    function animateToCart(button) {
+        const card = button.closest(".food-item-card");
+        const img = card.querySelector("img");
+        const cart = document.getElementById("cart-icon");
+        if (!img || !cart) return;
+
+        const imgRect = img.getBoundingClientRect();
+        const cartRect = cart.getBoundingClientRect();
+        const imgClone = img.cloneNode(true);
+
+        imgClone.classList.add("flying-img");
+        imgClone.style.top = imgRect.top + "px";
+        imgClone.style.left = imgRect.left + "px";
+        imgClone.style.width = imgRect.width + "px";
+
+        document.body.appendChild(imgClone);
+
+        requestAnimationFrame(() => {
+            imgClone.style.top = cartRect.top + "px";
+            imgClone.style.left = cartRect.left + "px";
+            imgClone.style.width = "30px";
+            imgClone.style.opacity = "0.5";
+        });
+
+        imgClone.addEventListener("transitionend", () => {
+            imgClone.remove();
+            cart.classList.add("bounce");
+            setTimeout(() => cart.classList.remove("bounce"), 300);
+        });
+    }
+</script>
+
+<script>
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+        // ищем, есть ли уже такой товар
+        const existing = cart.find(item =>
+            item.name === product.name &&
+            item.partner === product.partner
+        );
+
+        if (existing) {
+            existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+            cart.push({
+                ...product,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+        console.log("Cart:", cart);
+    }
+</script>
+
 </body>
 </html>

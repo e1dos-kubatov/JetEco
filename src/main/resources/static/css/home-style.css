@@ -109,6 +109,29 @@ p {
     margin-left: 20px;
     margin-right: 23px;
 }
+
+.partner-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    color: var(--primary-color);
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 23px;
+}
+.partner-button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
 .icon-button {
     display: inline-flex;
     align-items: center;

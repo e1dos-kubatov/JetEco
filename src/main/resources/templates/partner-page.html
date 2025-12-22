@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Partner page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        h2 { margin-top: 0; }
+
+        /* Partner info */
+        .partner-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .partner-info img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+        .partner-info input {
+            display: block;
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+        }
+
+        /* Product form */
+        .product-form input {
+            padding: 8px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+
+        /* Product list */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background: #fafafa;
+        }
+        .product h4 {
+            margin: 0 0 10px;
+        }
+        .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Partner profile -->
+    <div class="card">
+        <h2>Partner</h2>
+        <div class="partner-info">
+            <img id="avatarPreview" src="https://lh3.googleusercontent.com/a/ACg8ocLpHUt6OQMwhEI4KRuJUtPuCijn43OuHdn60Wz2stUNM_vihAs=s96-c" alt="Avatar" />
+            <div style="flex:1">
+                <h4>Ula Food</h4>
+                <h4>ulannur27@gmail.com</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add product -->
+    <div class="card">
+        <h2>Add offer</h2>
+        <div class="product-form">
+            <img id="PhotoOfFood" src="https://via.placeholder.com/120" alt="Photo" />
+            <input id="productName" type="text" placeholder="Name of offer" />
+            <input id="productImage" type="file" accept="image/*" />
+            <input id="productPrice" type="number" placeholder="Price" />
+            <input id="productQuantity" type="number" placeholder="Quantity" />
+            <input id="productWeight" type="number" placeholder="Weight in gramms" />
+            <button onclick="addProduct()">Add</button>
+        </div>
+    </div>
+
+    <!-- Product list -->
+    <div class="card">
+        <h2>Partner's offers</h2>
+        <div id="productList" class="products"></div>
+    </div>
+
+</div>
+
+<script>
+    // превью фото товара
+    document.getElementById('productImage').addEventListener('change', function (event) {
+        const img = document.getElementById('PhotoOfFood');
+        img.src = URL.createObjectURL(event.target.files[0]);
+    });
+
+    function addProduct() {
+        const productName = document.getElementById('productName');
+        const productPrice = document.getElementById('productPrice');
+        const productQuantity = document.getElementById('productQuantity');
+        const productWeight = document.getElementById('productWeight');
+        const productImage = document.getElementById('productImage');
+
+        const name = productName.value;
+        const price = productPrice.value;
+        const quantity = productQuantity.value;
+        const weight = productWeight.value;
+        const imageFile = productImage.files[0];
+
+        renderPartnerProducts();
+        window.onload = renderPartnerProducts;
+
+
+        if (!name || !price || !imageFile) {
+            alert('Enter name, price and photo');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const product = {
+                name,
+                price,
+                quantity,
+                weight,
+                image: e.target.result,
+                partner: "Ula Food"
+            };
+
+            const products = JSON.parse(localStorage.getItem("partnerProducts")) || [];
+            products.push(product);
+            localStorage.setItem("partnerProducts", JSON.stringify(products));
+
+            alert("Product added and saved!");
+
+            // очистка формы
+            productName.value = '';
+            productPrice.value = '';
+            productQuantity.value = '';
+            productWeight.value = '';
+            productImage.value = '';
+            document.getElementById('PhotoOfFood').src = 'https://via.placeholder.com/120';
+        };
+
+        reader.readAsDataURL(imageFile);
+    }
+    function renderPartnerProducts() {
+        const productList = document.getElementById("productList");
+        productList.innerHTML = "";
+
+        const products = JSON.parse(localStorage.getItem("partnerProducts")) || [];
+
+        products
+            .filter(p => p.partner === "Ula Food")
+            .forEach(product => {
+                const div = document.createElement("div");
+                div.className = "product";
+                div.innerHTML = `
+        <img src="${product.image}"
+             style="width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:8px;" />
+        <h4>${product.name}</h4>
+        <div class="price">${product.price} som</div>
+        <div>Weight: ${product.weight || "-"} g</div>
+        <div>Quantity: ${product.quantity || "-"}</div>
+      `;
+                productList.appendChild(div);
+            });
+    }
+
+</script>
+
+</body>
+</html>
+
