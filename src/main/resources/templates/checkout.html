@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Checkout | JetEco</title>
     <link rel="stylesheet" href="/css/checkout.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init('I0av9L96uc4HI8ds7');
+        })();
+    </script>
+
 </head>
 <body>
 
@@ -29,9 +36,10 @@
     </div>
 
     <!-- 💳 Payment method -->
-    <form action="/checkout/confirm" method="post" class="payment-form">
+    <form class="payment-form" onsubmit="sendOrderEmail(event)">
 
-        <h2>Payment Method</h2>
+
+    <h2>Payment Method</h2>
 
         <label class="payment-option">
             <input type="radio" name="paymentMethod" value="QR" checked>
@@ -65,6 +73,21 @@
             qrBlock.style.display = radio.value === 'QR' ? 'block' : 'none';
         });
     });
+</script>
+<script>
+    function sendOrderEmail(event) {
+        event.preventDefault();
+
+        emailjs.send("service_gird0do", "template_epp19ci")
+            .then(() => {
+                alert("Order confirmed! Email sent ✅");
+                window.location.href = "/";
+            })
+            .catch(error => {
+                alert("Email error");
+                console.log(error);
+            });
+    }
 </script>
 
 </body>
