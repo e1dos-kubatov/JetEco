@@ -47,6 +47,8 @@
                 <form th:action="@{/logout}" method="post" style="margin-left: 12px;">
                     <button type="submit" class="btn button-primary">Logout</button>
                 </form>
+                <button class="partner-button" onclick="window.location.href='/partner-page'">P</button>
+
             </div>
         </div>
     </div>
@@ -102,15 +104,8 @@
                         <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
-                <div class="food-item-card">
-                    <img src="https://images.unsplash.com/photo-1644203542040-2df37e3580ef?q=80&w=2940&auto=format&fit=crop" alt="Food Box 2">
-                    <h3>Food Box from Belagio</h3>
-                    <p>800 grams</p>
-                    <div class="price-like">
-                        <span>200 som</span>
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                </div>
+                <div class="food-items-grid" id="popularProducts"></div>
+
                 <div class="food-item-card">
                     <img src="https://images.unsplash.com/photo-1616645258469-ec681c17f3ee?q=80&w=2940&auto=format&fit=crop" alt="Sandwich">
                     <h3>Food Box from Ula Food</h3>
@@ -248,5 +243,147 @@ console.log("Role check: ", role);
         });
     });
 </script>
+<script>
+    const container = document.getElementById("popularProducts");
+    const products = JSON.parse(localStorage.getItem("partnerProducts")) || [];
+
+    products.forEach((product, index) => {
+        const card = document.createElement("div");
+        card.className = "food-item-card";
+
+        card.innerHTML = `
+      <img src="${product.image}">
+      <h3>${product.name}</h3>
+      <p>${product.weight || "-"} grams</p>
+      <div class="price-like">
+        <span>${product.price} som</span>
+        <button class="add-to-cart-btn" data-index="${index}">
+          Add to Cart
+        </button>
+      </div>
+    `;
+
+        container.appendChild(card);
+    });
+
+    // навешиваем обработчики
+    document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const index = e.target.dataset.index;
+            const product = products[index];
+
+            addToCart(product);
+            animateToCart(e.target);
+        });
+    });
+
+    function animateToCart(button) {
+        const card = button.closest(".food-item-card");
+        const img = card.querySelector("img");
+        const cart = document.getElementById("cart-icon");
+        if (!img || !cart) return;
+
+        const imgRect = img.getBoundingClientRect();
+        const cartRect = cart.getBoundingClientRect();
+        const imgClone = img.cloneNode(true);
+
+        imgClone.classList.add("flying-img");
+        imgClone.style.top = imgRect.top + "px";
+        imgClone.style.left = imgRect.left + "px";
+        imgClone.style.width = imgRect.width + "px";
+
+        document.body.appendChild(imgClone);
+
+        requestAnimationFrame(() => {
+            imgClone.style.top = cartRect.top + "px";
+            imgClone.style.left = cartRect.left + "px";
+            imgClone.style.width = "30px";
+            imgClone.style.opacity = "0.5";
+        });
+
+        imgClone.addEventListener("transitionend", () => {
+            imgClone.remove();
+            cart.classList.add("bounce");
+            setTimeout(() => cart.classList.remove("bounce"), 300);
+        });
+    }
+</script>
+
+<script>
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+        // ищем, есть ли уже такой товар
+        const existing = cart.find(item =>
+            item.name === product.name &&
+            item.partner === product.partner
+        );
+
+        if (existing) {
+            existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+            cart.push({
+                ...product,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+        console.log("Cart:", cart);
+    }
+</script>
+<script>
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+        const existing = cart.find(item =>
+            item.name === product.name &&
+            item.partner === product.partner
+        );
+
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({
+                ...product,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+    }
+
+    function renderHomeProducts() {
+        const container = document.getElementById("popularProducts");
+        const products = JSON.parse(localStorage.getItem("partnerProducts")) || [];
+
+        container.innerHTML = "";
+
+        products.forEach((product, index) => {
+            const card = document.createElement("div");
+            card.className = "food-item-card";
+
+            card.innerHTML = `
+        <img src="${product.image}">
+        <h3>${product.name}</h3>
+        <p>${product.weight || "-"} grams</p>
+        <div class="price-like">
+          <span>${product.price} som</span>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      `;
+
+            card.querySelector(".add-to-cart-btn").addEventListener("click", (e) => {
+                addToCart(product);
+                animateToCart(e.target);
+            });
+
+            container.appendChild(card);
+        });
+    }
+
+    renderHomeProducts();
+</script>
+
 </body>
 </html>
